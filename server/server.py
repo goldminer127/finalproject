@@ -74,17 +74,27 @@ class TwoInt(BaseModel):
 class OneString(BaseModel):
     value: str
 
+class OneList(BaseModel):
+    list: list
 
 # Gets data from the file and puts it in a list
 def retrieveRawData(targetData, attribute):
-    print("type(targetData): ", type(targetData))
-    print("attribute: ",str(attribute))
-    print("targetData: ",str(targetData))
-    print("targetData.columns: ",str(targetData.columns))
-    print("targetData.get(attribute): ",str(targetData.get(attribute)))
-    print("targetData.get(attribute).tolist(): ",str(targetData.get(attribute).tolist()))
     return targetData.get(attribute).tolist()
+    
+def retrieveRawDataForManyAttributes(targetData,attribute):
+    # Initialize an empty list to store the results
+    data_list = []
 
+    # Iterate over each row in the DataFrame
+    for _, row in targetData.iterrows():
+        tempList = []
+        for attr in attribute:
+            # Extract the desired attributes from the current row
+            tempList.append(row[attr])
+        # Append the attributes as a list to the main list
+        data_list.append(tempList)
+    # Return the resulting list
+    return data_list
 
 # Uses PCA to calculate the variance explained
 def calculateVarianceExplained():
@@ -215,7 +225,12 @@ def performInitialCalculations(data):
 
 @app.post('/getRawData')
 async def getRawData(os: OneString):
-    rawdata = retrieveRawData(data, os)
+    rawdata = retrieveRawData(data, os.value)
+    return {"rawdata" : rawdata}
+
+@app.post('/getRawDataForManyAttributes')
+async def getRawDataForManyAttributes(ol: OneList):
+    rawdata = retrieveRawDataForManyAttributes(data, ol.list)
     return {"rawdata" : rawdata}
 
 
