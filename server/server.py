@@ -223,19 +223,19 @@ def performInitialCalculations(data):
     calculateLabels()
 
 
-@app.post('/getRawData')
+@app.post('/api/getRawData')
 async def getRawData(os: OneString):
     rawdata = retrieveRawData(data, os.value)
     return {"rawdata" : rawdata}
 
-@app.post('/getRawDataForManyAttributes')
+@app.post('/api/getRawDataForManyAttributes')
 async def getRawDataForManyAttributes(ol: OneList):
     rawdata = retrieveRawDataForManyAttributes(data, ol.list)
     return {"rawdata" : rawdata}
 
 
 # Gets all the data needed at startup
-@app.post('/postInitialStats/')
+@app.post('/api/postInitialStats/')
 async def postInitialStats(jd: JustData):
     performInitialCalculations(jd.data)
     return {api_variable_names["idi"]: myDataObj.idi, api_variable_names["kIndex"]: myDataObj.k,
@@ -249,13 +249,13 @@ async def postInitialStats(jd: JustData):
 
 
 # Gets the list of labels
-@app.get('/getLabels/')
+@app.get('/api/getLabels/')
 async def getLabels():
     return {api_variable_names["labels"]: myDataObj.labels}
 
 
 # Updates the value of intrinsic dimensionality index and returns data needed to make the table and scatter matrix
-@app.post('/updateIdi/')
+@app.post('/api/updateIdi/')
 async def updateIdi(ji: JustInt):
     myDataObj.idi = ji.value
     calculateSumSquaredLoadings(myDataObj.eigenVectors)
@@ -267,7 +267,7 @@ async def updateIdi(ji: JustInt):
 
 
 # Updates the value of k and returns data needed to make the biplot and scatter matrix
-@app.post('/updateK/')
+@app.post('/api/updateK/')
 async def updateK(ji: JustInt):
     myDataObj.k = ji.value
     calculateLabels()
@@ -278,32 +278,32 @@ async def updateK(ji: JustInt):
 
 
 # After new pcs are selected on website, new projected points will need to be calculated. Returns data needed to make a biplot
-@app.post('/biPlotInfo/')
+@app.post('/api/biPlotInfo/')
 async def getBiPlotInfo(ti: TwoInt):
     CalculateProjectedPoints(ti.value1, ti.value2)
     return {api_variable_names["eigenVectors"]: myDataObj.eigenVectors, api_variable_names["labels"]: myDataObj.labels,
             api_variable_names["projectedPoints"]: myDataObj.projectedPoints}
 
 
-@app.get('/initializeDataMDS/')
+@app.get('/api/initializeDataMDS/')
 async def initializeDataMDSPoints():
     CalculateDataMDS()
     return {api_variable_names["dataMDS"]: myDataObj.dataMDSCoordinates}
 
 
-@app.get('/getDataMDS/')
+@app.get('/api/getDataMDS/')
 async def getDataMDSPoints():
     return {api_variable_names["dataMDS"]: myDataObj.dataMDSCoordinates}
 
 
-@app.get('/initializeVarMDS/')
+@app.get('/api/initializeVarMDS/')
 async def initializeVarMDSPoints():
     calculateVariableMDS()
     return {api_variable_names["varMDS"]: myDataObj.varMDSCoordinates,
             api_variable_names["corMatrix"]: myDataObj.corMatrix}
 
 
-@app.get('/getVarMDS/')
+@app.get('/api/getVarMDS/')
 async def getVarMDSPoints():
     return {api_variable_names["varMDS"]: myDataObj.varMDSCoordinates,
             api_variable_names["corMatrix"]: myDataObj.corMatrix}
