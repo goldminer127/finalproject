@@ -24,7 +24,8 @@ function App() {
       ).then(
         data => {
           setScatterPlotData(data)
-        }
+        },
+        fetchCalls.current[0] = 1
       )
     }
   }, [])
