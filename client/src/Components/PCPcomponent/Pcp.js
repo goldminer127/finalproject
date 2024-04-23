@@ -1,7 +1,7 @@
 import './Pcp.css';
 import * as d3 from 'd3';
 
-function Pcp({categoryNames,allData,label, pcpAxisOrder, setPcpAxisOrder}) {
+function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxisOrder}) {
     console.log(allData)
     console.log(label)
 

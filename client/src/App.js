@@ -17,6 +17,29 @@ function App() {
     "varMDS": "varMDS",
     "corMatrix": "corMatrix"
 }
+const colorMapping = {
+  0: "red",
+  1: "orange",
+  2: "yellow",
+  3: "green",
+  4: "blue",
+  5: "indigo",
+  6: "violet",
+  7: "cyan",
+  8: "magenta",
+  9: "pink",
+  10: "brown",
+  11: "white",
+  12: "turquoise",
+  13: "lavender",
+  14: "peach",
+  15: "lime",
+  16: "olive",
+  17: "maroon",
+  18: "teal",
+  19: "salmon"
+};
+
   let [scatterPlotData, setScatterPlotData] = useState([])
   let [pcpAxisOrder,setPcpAxisOrder] = useState([])
   let [categoryNames,setCategoryNames] = useState([])
@@ -81,11 +104,11 @@ function App() {
         <div className="bottom-row">
           {/* PCP */}
           <div className="big-box">
-            <Pcp categoryNames={categoryNames} allData={allData} label={label} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/>
+            <Pcp colorMapping={colorMapping} categoryNames={categoryNames} allData={allData} label={label} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/>
           </div>
           {/* Attribute MDS */}
           <div className="box">
-            <AttributeMDS categoryNames={categoryNames} kIndex={kIndex} elbowIndex={elbowIndex} label={label} variableMDScoordinates={variableMDScoordinates} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/>
+            <AttributeMDS colorMapping={colorMapping} categoryNames={categoryNames} kIndex={kIndex} elbowIndex={elbowIndex} label={label} variableMDScoordinates={variableMDScoordinates} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/>
           </div>
         </div>
       </div>
