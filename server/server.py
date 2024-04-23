@@ -16,17 +16,13 @@ data = pd.read_json("visDataset.json")
 # Used when returning values from the api. This table should be the same as the one found in the website's javascript code. Keeps the variable names organized and consistent between the backend and frontend.
 api_variable_names = {
     "data": "data",
-    "idi": "idi",
+    "numericalData":"nd",
+    "rawData":"rd",
+    "categoryNames":'cn',
     "kIndex": "ki",
     "elbowindex": "ei",
-    "sumSquaredLoadings": "ssl",
-    "projectedPoints": "pp",
-    "eigenValues": "ev",
-    "varianceExplained": "ve",
-    "eigenVectors": "ev",
     "listOfMSE": "mse",
     "labels": "labels",
-    "dataMDS": "dataMDS",
     "varMDS": "varMDS",
     "corMatrix": "corMatrix"
 }
@@ -36,17 +32,12 @@ api_variable_names = {
 class MyData:
     def __init__(self):
         self.data = []
-        self.idi = -1
+        #Holds numerical data only
+        self.numericalData = []
         self.k = -1
         self.elbowIndex = -1
-        self.sumSquaredLoadings = []
-        self.projectedPoints = []
-        self.eigenValues = []
-        self.varianceExplained = []
-        self.eigenVectors = []
         self.listOfMSE = []
         self.labels = []
-        self.dataMDSCoordinates = []
         self.varMDSCoordinates = []
         self.corMatrix = []
 
@@ -77,10 +68,31 @@ class OneString(BaseModel):
 class OneList(BaseModel):
     list: list
 
+def getData():
+    list_of_lists = []
+    for _, row in data.iterrows():
+        inner_list = []
+        for column in data.columns:
+            inner_list.append(row[column])
+        list_of_lists.append(inner_list)
+    return list_of_lists
+
+# Creates a list of numerical values
+def getNumericList():
+    exclude_attributes = ["Ticker","Date"]
+    list_of_lists = []
+    for _, row in data.iterrows():
+        inner_list = []
+        for column in data.columns:
+            if column not in exclude_attributes:
+                inner_list.append(row[column])
+        list_of_lists.append(inner_list)
+    return list_of_lists
+
 # Gets data from the file and puts it in a list
 def retrieveRawData(targetData, attribute):
     return targetData.get(attribute).tolist()
-    
+
 def retrieveRawDataForManyAttributes(targetData,attribute):
     # Initialize an empty list to store the results
     data_list = []
@@ -96,18 +108,10 @@ def retrieveRawDataForManyAttributes(targetData,attribute):
     # Return the resulting list
     return data_list
 
-# Uses PCA to calculate the variance explained
-def calculateVarianceExplained():
-    data = myDataObj.data
-    np_array = np.array(data)
-    pca = PCA(n_components=len(data[0]))
-    pca.fit(np_array)
-    myDataObj.varianceExplained = pca.explained_variance_ratio_.tolist()
-
 
 # Normalizes the data then calculates the MSE for an 'nClusters' amount of clusters
 def calculateMSE(nClusters):
-    x_array = np.array(myDataObj.data)
+    x_array = np.array(myDataObj.numericalData)
     min_vals = np.min(x_array, axis=1, keepdims=True)
     max_vals = np.max(x_array, axis=1, keepdims=True)
     normalized_data = (x_array - min_vals) / (max_vals - min_vals)
@@ -118,9 +122,8 @@ def calculateMSE(nClusters):
 
 # Gets the list of MSE value for a cumulative amount of clusters
 def getMSEList():
-    data = myDataObj.data
     mse_list = []
-    for n in range(1, len(data[0]) + 1):
+    for n in range(1, len(myDataObj.numericalData[0]) + 1):
         mse = calculateMSE(n)
         mse_list.append(mse)
     myDataObj.listOfMSE = mse_list
@@ -128,12 +131,11 @@ def getMSEList():
 
 # This method first gets the list of mse values, then uses that list to find the elbow
 def calculateElbowIndex():
-    data = myDataObj.data
     listOfMSEValues = []
     # Getting list of mse values
-    for i in range(1, 13):
+    for i in range(1, len(myDataObj.numericalData[0]) + 1):
         kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
-        kmeans.fit(data)
+        kmeans.fit(myDataObj.numericalData)
         listOfMSEValues.append(kmeans.inertia_)
     # Finding elbow
     x = np.arange(1, len(listOfMSEValues) + 1)
@@ -141,62 +143,18 @@ def calculateElbowIndex():
     myDataObj.elbowIndex = int(kneedle.elbow)
 
 
-# Projects the points to domain and range [-1,1]
-def CalculateProjectedPoints(pc1Index=0, pc2Index=1):
-    npArrData = np.array(myDataObj.data)
-    pca = PCA(n_components=len(myDataObj.data[0]))
-    transformed_data = pca.fit_transform(npArrData)
-    firstPC = transformed_data[:, pc1Index]
-    secondPC = transformed_data[:, pc2Index]
-    dimensionality_list = [[firstPC[i], secondPC[i]] for i in range(len(firstPC))]
-    myDataObj.projectedPoints = dimensionality_list
-    # Scale the transformed data to [-1, 1] range using dimensionality_list
-    scaled_data = np.array(dimensionality_list) / np.max(np.abs(dimensionality_list))
-    myDataObj.projectedPoints = scaled_data.tolist()
-
-
-# Gets eigenvectors of pcs
-def computeEigenVectors():
-    data = myDataObj.data
-    np_array = np.array(data)
-    pca = PCA(n_components=len(data[0]))
-    pca.fit(np_array)
-    myDataObj.eigenVectors = pca.components_.tolist()
-
 
 # Gets the labels
 def calculateLabels():
-    data = myDataObj.data
-    input_data = np.array(data)
+    input_data = np.array(myDataObj.numericalData)
     kmeans = KMeans(n_clusters=myDataObj.k, random_state=42)
     kmeans.fit(input_data)
     myDataObj.labels = kmeans.labels_.tolist()
 
 
-# Computes the sum squared loadings
-def calculateSumSquaredLoadings(eigenvectors):
-    if (myDataObj.idi == -1): myDataObj.idi = 12
-    sum_squared_loadings = []
-    for row in eigenvectors:
-        tempsum = 0
-        for index, col in enumerate(row):
-            if (index <= myDataObj.idi):
-                tempsum = tempsum + (col * col)
-            else:
-                continue
-        sum_squared_loadings.append(math.sqrt(tempsum))
-    myDataObj.sumSquaredLoadings = sum_squared_loadings
-
-
-def CalculateDataMDS():
-    mds = MDS(n_components=2, metric=True)
-
-    X_transformed = mds.fit_transform(myDataObj.data)
-    myDataObj.dataMDSCoordinates = X_transformed.tolist()
-
-
 def calculateVariableMDS():
-    numArray = [list(map(lambda l: l[i], myDataObj.data)) for i in range(len(myDataObj.data[0]))]
+    # Transposing data
+    numArray = [list(map(lambda l: l[i], myDataObj.numericalData)) for i in range(len(myDataObj.numericalData[0]))]
     correlation_matrix = np.corrcoef(numArray)
 
     # Compute dissimilarity matrix
@@ -210,42 +168,39 @@ def calculateVariableMDS():
 
 
 # Performs initial calculations that will be needed by the website
-def performInitialCalculations(data):
-    myDataObj.data = data
+def performInitialCalculations():
+    myDataObj.data = getData()
+    #Initialize numeric data
+    myDataObj.numericalData = getNumericList()
     calculateElbowIndex()
-    myDataObj.idi = myDataObj.elbowIndex
     myDataObj.k = myDataObj.elbowIndex
-    calculateVarianceExplained()
     getMSEList()
-    CalculateProjectedPoints()
-    computeEigenVectors()
-    calculateSumSquaredLoadings(myDataObj.eigenVectors)
     calculateLabels()
 
 
 @app.post('/api/getRawData')
 async def getRawData(os: OneString):
     rawdata = retrieveRawData(data, os.value)
-    return {"rawdata" : rawdata}
+    return {api_variable_names["rawData"]: rawdata}
 
 @app.post('/api/getRawDataForManyAttributes')
 async def getRawDataForManyAttributes(ol: OneList):
     rawdata = retrieveRawDataForManyAttributes(data, ol.list)
-    return {"rawdata" : rawdata}
+    return {api_variable_names["rawData"] : rawdata}
 
 
 # Gets all the data needed at startup
-@app.post('/api/postInitialStats/')
-async def postInitialStats(jd: JustData):
-    performInitialCalculations(jd.data)
-    return {api_variable_names["idi"]: myDataObj.idi, api_variable_names["kIndex"]: myDataObj.k,
-            api_variable_names["varianceExplained"]: myDataObj.varianceExplained,
-            api_variable_names["listOfMSE"]: myDataObj.listOfMSE,
+@app.get('/api/getInitialStats/')
+async def getInitialStats():
+    performInitialCalculations()
+    calculateVariableMDS()
+    return {api_variable_names["categoryNames"]:data.columns.tolist(),
+            api_variable_names["data"]:myDataObj.data,
+            api_variable_names["kIndex"]: myDataObj.k,
             api_variable_names["elbowindex"]: myDataObj.elbowIndex,
-            api_variable_names["projectedPoints"]: myDataObj.projectedPoints,
-            api_variable_names["eigenVectors"]: myDataObj.eigenVectors,
-            api_variable_names["sumSquaredLoadings"]: myDataObj.sumSquaredLoadings,
-            api_variable_names["labels"]: myDataObj.labels}
+            api_variable_names["labels"]: myDataObj.labels,
+            api_variable_names["varMDS"]: myDataObj.varMDSCoordinates}
+
 
 
 # Gets the list of labels
@@ -253,54 +208,20 @@ async def postInitialStats(jd: JustData):
 async def getLabels():
     return {api_variable_names["labels"]: myDataObj.labels}
 
-
-# Updates the value of intrinsic dimensionality index and returns data needed to make the table and scatter matrix
-@app.post('/api/updateIdi/')
-async def updateIdi(ji: JustInt):
-    myDataObj.idi = ji.value
-    calculateSumSquaredLoadings(myDataObj.eigenVectors)
-    calculateLabels()
-    return {api_variable_names["eigenVectors"]: myDataObj.eigenVectors,
-            api_variable_names["sumSquaredLoadings"]: myDataObj.sumSquaredLoadings,
-            api_variable_names["idi"]: myDataObj.idi, api_variable_names["data"]: myDataObj.data,
-            api_variable_names["labels"]: myDataObj.labels}
-
-
 # Updates the value of k and returns data needed to make the biplot and scatter matrix
 @app.post('/api/updateK/')
 async def updateK(ji: JustInt):
     myDataObj.k = ji.value
     calculateLabels()
-    return {api_variable_names["eigenVectors"]: myDataObj.eigenVectors, api_variable_names["labels"]: myDataObj.labels,
-            api_variable_names["projectedPoints"]: myDataObj.projectedPoints,
-            api_variable_names["data"]: myDataObj.data,
-            api_variable_names["sumSquaredLoadings"]: myDataObj.sumSquaredLoadings}
+    return {api_variable_names["labels"]: myDataObj.labels}
 
-
-# After new pcs are selected on website, new projected points will need to be calculated. Returns data needed to make a biplot
-@app.post('/api/biPlotInfo/')
-async def getBiPlotInfo(ti: TwoInt):
-    CalculateProjectedPoints(ti.value1, ti.value2)
-    return {api_variable_names["eigenVectors"]: myDataObj.eigenVectors, api_variable_names["labels"]: myDataObj.labels,
-            api_variable_names["projectedPoints"]: myDataObj.projectedPoints}
-
-
-@app.get('/api/initializeDataMDS/')
-async def initializeDataMDSPoints():
-    CalculateDataMDS()
-    return {api_variable_names["dataMDS"]: myDataObj.dataMDSCoordinates}
-
-
-@app.get('/api/getDataMDS/')
-async def getDataMDSPoints():
-    return {api_variable_names["dataMDS"]: myDataObj.dataMDSCoordinates}
-
-
+'''
 @app.get('/api/initializeVarMDS/')
 async def initializeVarMDSPoints():
     calculateVariableMDS()
     return {api_variable_names["varMDS"]: myDataObj.varMDSCoordinates,
             api_variable_names["corMatrix"]: myDataObj.corMatrix}
+'''
 
 
 @app.get('/api/getVarMDS/')

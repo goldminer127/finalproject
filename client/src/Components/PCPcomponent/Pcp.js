@@ -1,7 +1,10 @@
 import './Pcp.css';
 import * as d3 from 'd3';
 
-function Pcp() {
+function Pcp({categoryNames,allData,label, pcpAxisOrder, setPcpAxisOrder}) {
+    console.log(allData)
+    console.log(label)
+
     return(
         <>
             <div>Big Div</div>
