@@ -51,7 +51,7 @@ const colorMapping = {
   let [selectedAttributes, setSelectedAttributes] = useState(["Open","Close"])
   let [rerender, setRerender] = useState("")
   //Add new 0 to the list for every fetch call
-  let fetchCalls = useRef([0])
+  let fetchCalls = useRef([0,0])
   useEffect(() =>{
     if ((scatterPlotData.length <= 0 || rerender === "scatterPlot") && fetchCalls.current[0] === 0) {
       fetchCalls.current[0] = 1
@@ -71,8 +71,8 @@ const colorMapping = {
       )
     }
     
-    if (fetchCalls.current[0] === 0) {
-      fetchCalls.current[0] = 1
+    if (fetchCalls.current[1] === 0) {
+      fetchCalls.current[1] = 1
       fetch("/api/getInitialStats/", {
         method: 'get'
       }).then(
@@ -85,8 +85,31 @@ const colorMapping = {
           setElbowIndex(data[api_variable_names["elbowindex"]])
           setLabel(data[api_variable_names["labels"]])
           setVariableMDScoordinates(data[api_variable_names["varMDS"]])
+          if(data[api_variable_names["data"]][0]!=undefined && data[api_variable_names["data"]][0] != undefined){
+            //Initialize array from 0 -> length of allData[0]
+            setPcpAxisOrder(()=>{
+              let arr = []
+              //Going up to length because of extra attribute - break up Date into month and year
+              for(let i = 0; i <= data[api_variable_names["data"]][0].length;i++){
+                arr.push(i)
+              }
+              return arr
+            })
+
+            let tempCategoryList = []
+            for(let i = 0;i<data[api_variable_names["categoryNames"]].length;i++){
+                if(i!=1){
+                    tempCategoryList.push(data[api_variable_names["categoryNames"]][i])
+                }
+                else{
+                    tempCategoryList.push("Year")
+                    tempCategoryList.push("Month")
+                }
+            }
+            setCategoryNames(tempCategoryList)
+          }
         },
-        fetchCalls.current[0] = 0
+        // fetchCalls.current[1] = 0
       )
     }
   }, [])

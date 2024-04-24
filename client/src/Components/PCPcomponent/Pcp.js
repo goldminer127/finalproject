@@ -13,7 +13,10 @@ var slider1Coordinates = []
 //Holds coordinates for lower slider
 var slider2Coordinates = []
 
+
 function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxisOrder}) {
+var [pcpRenderer,setPcpRerenderer] = useState(0)
+
     if(allData!=undefined&&allData[0]!=undefined){
         let listOfLists = []
         
@@ -32,22 +35,9 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
             listOfLists.push(tempDataList)
         }
         allData = listOfLists
-        let tempCategoryList = []
-        for(let i = 0;i<categoryNames.length;i++){
-            if(i!=1){
-                tempCategoryList.push(categoryNames[i])
-            }
-            else{
-                tempCategoryList.push("Year")
-                tempCategoryList.push("Month")
-            }
-        }
-        categoryNames=tempCategoryList
+        
 
     }
-    console.log(allData)
-    console.log(label)
-    console.log(categoryNames)
     const svgRef = useRef();
     useEffect(() => {
         if(allData!=undefined&&allData[0]!=undefined){
@@ -68,13 +58,15 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
         let dictOfScales = {}
         //Making axes
         for(let j = 0;j<allData[0].length;j++){
-            if(typeof allData[0][j] =="string"){
-                const OPTIONS = Array.from(new Set(allData.map(row => row[j])));
+            if(typeof allData[0][pcpAxisOrder[j]] =="string"){
+                const OPTIONS = Array.from(new Set(allData.map(row => row[pcpAxisOrder[j]])));
                 //The domain is set to the options
                 const yDomain = OPTIONS
                 const yRange = [height - margin.bottom, margin.top+margin.top]
                 const yScale = scaleBand(yDomain,yRange).padding(1)
-                dictOfScales[categoryNames[j]] = yScale
+                dictOfScales[categoryNames[pcpAxisOrder[j]]] = yScale
+                slider1Coordinates.push(yScale(OPTIONS[OPTIONS.length-1]))
+                slider2Coordinates.push(yScale(OPTIONS[0]))
                 attributeTresholds.push([0,OPTIONS.length-1])
                 const yAxis= axisLeft(yScale)
                 svg.append("g")    
@@ -116,15 +108,13 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
                             }
                         }
                     }
-                /*
-                var temp = pcpIndicies[j];
-                pcpIndicies[j] = pcpIndicies[closestCategoryIndex]
-                pcpIndicies[closestCategoryIndex] = temp;
-                makePcpPlot()
-                */
+                    var temp = pcpAxisOrder[j];
+                    pcpAxisOrder[j] = pcpAxisOrder[closestCategoryIndex]
+                    pcpAxisOrder[closestCategoryIndex] = temp;
+                    //Rerender pcp somehow
+                    setPcpRerenderer(pcpRenderer+1)
                 })
-            ).call(yAxis).append("text").style("text-anchor", "middle").attr('id','pcpText'+axisIndex).attr("y", margin.top*1.5).text(categoryNames[j]).style("fill", "white")
-            /*
+            ).call(yAxis).append("text").style("text-anchor", "middle").attr('id','pcpText'+axisIndex).attr("y", margin.top*1.5).text(categoryNames[pcpAxisOrder[j]]).style("fill", "white")
             //Upper slider
             svg.append("circle")
                 .attr("cx", pcpXScale(j))
@@ -168,14 +158,15 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
                     var yValue = listOfyScaleValues[closestCategoryIndex];
                     // Move the slider to the snapped position
                     select(this).attr("cy", yValue); 
-                    attributeTresholds[pcpIndicies[j]][1] = closestCategoryIndex
-                    slider1Coordinates[pcpIndicies[j]] = yValue
-                    makePcpPlot()
+                    attributeTresholds[pcpAxisOrder[j]][1] = closestCategoryIndex
+                    slider1Coordinates[pcpAxisOrder[j]] = yValue
+                    setPcpRerenderer(pcpRenderer+1)
+
                 }))
             //Lower slider
             svg.append("circle")
             .attr("cx", pcpXScale(j))
-            .attr("cy", slider2Coordinates[pcpIndicies[j]])
+            .attr("cy", slider2Coordinates[pcpAxisOrder[j]])
             .attr("r", 5)
             .style("fill", "red")
             .call(d3.drag()
@@ -214,21 +205,22 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
                 var yValue = listOfyScaleValues[closestCategoryIndex];
                 // Move the slider to the snapped position
                 select(this).attr("cy", yValue); 
-                attributeTresholds[pcpIndicies[j]][0] = closestCategoryIndex
-                slider2Coordinates[pcpIndicies[j]] = yValue
-                makePcpPlot()
+                attributeTresholds[pcpAxisOrder[j]][0] = closestCategoryIndex
+                slider2Coordinates[pcpAxisOrder[j]] = yValue
+                setPcpRerenderer(pcpRenderer+1)
             }))
-            */
             axisIndex++
             }
             else{
-                const dataColumnj = allData.map(row => row[j]);
+                const dataColumnj = allData.map(row => row[pcpAxisOrder[j]]);
                 const yDomain = [Math.min(...dataColumnj)-(Math.min(...dataColumnj)*.01),Math.max(...dataColumnj)+(Math.max(...dataColumnj)*.01)]
                 const yRange = [height - margin.bottom, margin.top+margin.top]
                 const yScale = scaleLinear(yDomain,yRange)
                 const invertedYscale = scaleLinear(yRange,yDomain)
                 attributeTresholds.push([invertedYscale.range()[0],invertedYscale.range()[1]])
-                dictOfScales[categoryNames[j]] = yScale
+                dictOfScales[categoryNames[pcpAxisOrder[j]]] = yScale
+                slider1Coordinates.push(yScale(Math.max(...dataColumnj)))
+                slider2Coordinates.push(yScale(Math.min(...dataColumnj)))
                 const yAxis= axisLeft(yScale)
                 yAxis.tickFormat(d3.format(".0e"));
                 svg.append("g")
@@ -270,19 +262,22 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
                             }
                         }
                     }
+                    var temp = pcpAxisOrder[j];
+                    pcpAxisOrder[j] = pcpAxisOrder[closestCategoryIndex]
+                    pcpAxisOrder[closestCategoryIndex] = temp;
+                    //Rerender pcp somehow
+                    //console.log(pcpAxisOrder)
+                    setPcpRerenderer(pcpRenderer+1)
+
                     /*
-                    var temp = pcpIndicies[j];
-                    pcpIndicies[j] = pcpIndicies[closestCategoryIndex]
-                    pcpIndicies[closestCategoryIndex] = temp;
                     makePcpPlot()
                     */
                 })
-            ).call(yAxis).append("text").style("text-anchor", "middle").attr('id','pcpText'+axisIndex).attr("y", margin.top*1.5).text(categoryNames[j]).style("fill", "white")
-            /*
+            ).call(yAxis).append("text").style("text-anchor", "middle").attr('id','pcpText'+axisIndex).attr("y", margin.top*1.5).text(categoryNames[pcpAxisOrder[j]]).style("fill", "white")
             //Upper slider
             svg.append("circle")
                 .attr("cx", pcpXScale(j))
-                .attr("cy", slider1Coordinates[pcpIndicies[j]])
+                .attr("cy", slider1Coordinates[pcpAxisOrder[j]])
                 .attr("r", 5)
                 .style("fill", "blue")
                 .call(d3.drag()
@@ -291,14 +286,14 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
                 })
                 .on("end", function() {
                     var yPos = select(this).attr("cy")
-                    attributeTresholds[pcpIndicies[j]][1] = invertedYscale(yPos)
-                    slider1Coordinates[pcpIndicies[j]] = yPos
-                    makePcpPlot()
+                    attributeTresholds[pcpAxisOrder[j]][1] = invertedYscale(yPos)
+                    slider1Coordinates[pcpAxisOrder[j]] = yPos
+                    setPcpRerenderer(pcpRenderer+1)
                 }))
             //Lower slider
             svg.append("circle")
                 .attr("cx", pcpXScale(j))
-                .attr("cy", slider2Coordinates[pcpIndicies[j]])
+                .attr("cy", slider2Coordinates[pcpAxisOrder[j]])
                 .attr("r", 5)
                 .style("fill", "red")
                 .call(d3.drag()
@@ -307,11 +302,10 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
                 })
                 .on("end", function() {
                     var yPos = select(this).attr("cy")
-                    attributeTresholds[pcpIndicies[j]][0] = invertedYscale(yPos)
-                    slider2Coordinates[pcpIndicies[j]] = yPos
-                    makePcpPlot()
+                    attributeTresholds[pcpAxisOrder[j]][0] = invertedYscale(yPos)
+                    slider2Coordinates[pcpAxisOrder[j]] = yPos
+                    setPcpRerenderer(pcpRenderer+1)
                 }))
-            */
             axisIndex++
             }
             
@@ -321,16 +315,16 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
        for(let j = 0;j<allData.length;j++){
            let validRow = true;
            for(let index = 0;index<categoryNames.length;index++){
-               if(typeof allData[j][index] === 'string'){
-                   let valueIndex = dictOfScales[categoryNames[index]].domain().indexOf(allData[j][index])
-                   if(valueIndex<attributeTresholds[index][0] || valueIndex>attributeTresholds[index][1]){
+               if(typeof allData[j][pcpAxisOrder[index]] === 'string'){
+                   let valueIndex = dictOfScales[categoryNames[pcpAxisOrder[index]]].domain().indexOf(allData[j][pcpAxisOrder[index]])
+                   if(valueIndex<attributeTresholds[pcpAxisOrder[index]][0] || valueIndex>attributeTresholds[pcpAxisOrder[index]][1]){
                        index = categoryNames.length+1
                        validRow=false
                     }
                 }
                 else{
-                    let valueOfRowElement = parseFloat(allData[j][index])
-                    if(valueOfRowElement<attributeTresholds[index][0] || valueOfRowElement>attributeTresholds[index][1]){
+                    let valueOfRowElement = parseFloat(allData[j][pcpAxisOrder[index]])
+                    if(valueOfRowElement<attributeTresholds[pcpAxisOrder[index]][0] || valueOfRowElement>attributeTresholds[pcpAxisOrder[index]][1]){
                         index = categoryNames.length+1
                         validRow=false
                     }
@@ -339,7 +333,7 @@ function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxi
             if(validRow){
                 for(let index = 1;index<categoryNames.length;index++){
                     svg.append("path").attr("id", "line"+label[j]).style("fill", "none" ).style("stroke", colorMapping[label[j]]).style("opacity", '0.8').attr("d",(d,i)=>{
-                        return 'M'+pcpXScale(index-1)+","+(dictOfScales[categoryNames[index-1]](allData[j][index-1]))+ ' L' + pcpXScale(index)+","+(dictOfScales[categoryNames[index]](allData[j][index]))
+                        return 'M'+pcpXScale(index-1)+","+(dictOfScales[categoryNames[pcpAxisOrder[index-1]]](allData[j][pcpAxisOrder[index-1]]))+ ' L' + pcpXScale(index)+","+(dictOfScales[categoryNames[pcpAxisOrder[index]]](allData[j][pcpAxisOrder[index]]))
                     })
                 }
             }
