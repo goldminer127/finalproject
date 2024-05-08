@@ -115,14 +115,14 @@ const colorMapping = {
   }, [])
   return (
       <div className="container">
-        {console.log(scatterPlotData)}
         <div className="top-row">
           {/* Line plot */}
           <div className="box">Div 1</div>
           {/* Candle plot */}
           <div className="box">Div 2</div>
-          {/* Scatter plot */}
-          <div className="box">Div 3</div>
+          <div id="scatterPlotBox" className="box">
+            <ScatterPlot width={window.visualViewport.width * .28} height={window.visualViewport.height * .4} data={Object.keys(scatterPlotData).map((key) => scatterPlotData[key])[0]} xAxisLabel={"Open"} yAxisLabel={"Close"} xTicks={10} yTicks={10} />
+          </div>
         </div>
         <div className="bottom-row">
           {/* PCP */}
