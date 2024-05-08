@@ -30,8 +30,24 @@ body{
 }
 
 .big-box {
-    width: 66.66%; /* Big div takes up two-thirds of the width */
+    width: 50%; /* Big div takes up two-thirds of the width */
     /* background-color: lightcoral; */
     border: 1px solid white;
   }
+
+
+#pcpContainer,#compareContainer {
+  flex-grow: 1; /* Make divs grow to fill available space */
+  height: 100%; /* Expand divs to take up available height */
+}
+#pcpContainer{
+  width: 40%; /* Each div takes up one-third of the width */
+    /* background-color: lightblue; */
+    border: 1px solid white;
+}
+#compareContainer {
+  width: 60%; /* Big div takes up two-thirds of the width */
+  /* background-color: lightcoral; */
+  border: 1px solid white;
+}
   

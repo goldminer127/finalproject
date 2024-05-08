@@ -12,10 +12,12 @@ from sklearn.manifold import MDS
 app = FastAPI()
 
 data = pd.read_json("visDataset.json")
+vooData = pd.read_json("vooData.json")
 
 # Used when returning values from the api. This table should be the same as the one found in the website's javascript code. Keeps the variable names organized and consistent between the backend and frontend.
 api_variable_names = {
     "data": "data",
+    "vooData": "vd",
     "numericalData":"nd",
     "rawData":"rd",
     "categoryNames":'cn',
@@ -32,6 +34,7 @@ api_variable_names = {
 class MyData:
     def __init__(self):
         self.data = []
+        self.vooData = []
         #Holds numerical data only
         self.numericalData = []
         self.k = -1
@@ -73,6 +76,15 @@ def getData():
     for _, row in data.iterrows():
         inner_list = []
         for column in data.columns:
+            inner_list.append(row[column])
+        list_of_lists.append(inner_list)
+    return list_of_lists
+
+def getVooData():
+    list_of_lists = []
+    for _, row in vooData.iterrows():
+        inner_list = []
+        for column in vooData.columns:
             inner_list.append(row[column])
         list_of_lists.append(inner_list)
     return list_of_lists
@@ -170,6 +182,7 @@ def calculateVariableMDS():
 # Performs initial calculations that will be needed by the website
 def performInitialCalculations():
     myDataObj.data = getData()
+    myDataObj.vooData = getVooData()
     #Initialize numeric data
     myDataObj.numericalData = getNumericList()
     calculateElbowIndex()
@@ -196,6 +209,7 @@ async def getInitialStats():
     calculateVariableMDS()
     return {api_variable_names["categoryNames"]:data.columns.tolist(),
             api_variable_names["data"]:myDataObj.data,
+            api_variable_names["vooData"]:myDataObj.vooData,
             api_variable_names["kIndex"]: myDataObj.k,
             api_variable_names["elbowindex"]: myDataObj.elbowIndex,
             api_variable_names["labels"]: myDataObj.labels,

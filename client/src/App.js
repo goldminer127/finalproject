@@ -3,10 +3,12 @@ import './App.css';
 import AttributeMDS from './Components/AttributeMDS/AttributeMDS';
 import Pcp from './Components/PCPcomponent/Pcp';
 import ScatterPlot from './Components/Scatterplot/ScatterPlot';
+import ProfitLineGraph from './Components/ProfitLineGraph/ProfitLineGraph';
 
 function App() {
   const api_variable_names = {
     "data": "data",
+    "vooData": "vd",
     "numericalData":"nd",
     "rawData":"rd",
     "categoryNames":'cn',
@@ -24,18 +26,18 @@ const colorMapping = {
   3: "green",
   4: "blue",
   5: "indigo",
-  6: "violet",
+  6: "lavender",
   7: "cyan",
-  8: "magenta",
-  9: "pink",
-  10: "brown",
-  11: "white",
-  12: "turquoise",
-  13: "lavender",
+  8: "pink",
+  9: "lime",
+  10: "magenta",
+  11: "brown",
+  12: "white",
+  13: "olive",
   14: "peach",
-  15: "lime",
-  16: "olive",
-  17: "maroon",
+  15: "maroon",
+  16: "violet",
+  17: "turquoise",
   18: "teal",
   19: "salmon"
 };
@@ -44,6 +46,7 @@ const colorMapping = {
   let [pcpAxisOrder,setPcpAxisOrder] = useState([])
   let [categoryNames,setCategoryNames] = useState([])
   let [allData,setAllData] = useState([])
+  let [vooData, setVooData] = useState([])
   let [kIndex,setKIndex] = useState(0)
   let [elbowIndex,setElbowIndex] = useState(0)
   let [label,setLabel] = useState([])
@@ -81,6 +84,7 @@ const colorMapping = {
         data => {
           setCategoryNames(data[api_variable_names["categoryNames"]])
           setAllData(data[api_variable_names["data"]])
+          setVooData(data[api_variable_names["vooData"]])
           setKIndex(data[api_variable_names["kIndex"]])
           setElbowIndex(data[api_variable_names["elbowindex"]])
           setLabel(data[api_variable_names["labels"]])
@@ -126,12 +130,13 @@ const colorMapping = {
         </div>
         <div className="bottom-row">
           {/* PCP */}
-          <div className="big-box">
-            <Pcp colorMapping={colorMapping} categoryNames={categoryNames} allData={allData} label={label} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/>
+          <div id="compareContainer">
+            <ProfitLineGraph categoryNames={categoryNames.slice(0, 8)} vooData={vooData} allData={allData}/>
           </div>
           {/* Attribute MDS */}
-          <div className="box">
-            <AttributeMDS colorMapping={colorMapping} categoryNames={categoryNames} kIndex={kIndex} elbowIndex={elbowIndex} label={label} variableMDScoordinates={variableMDScoordinates} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/>
+          <div className="pcpContainer">
+            <Pcp colorMapping={colorMapping} categoryNames={categoryNames} allData={allData} label={label} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/>
+            {/* <AttributeMDS colorMapping={colorMapping} categoryNames={categoryNames} kIndex={kIndex} elbowIndex={elbowIndex} label={label} variableMDScoordinates={variableMDScoordinates} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/> */}
           </div>
         </div>
       </div>

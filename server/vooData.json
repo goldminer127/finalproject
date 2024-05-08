@@ -1,0 +1,1202 @@
+[
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2023",
+    "Open": 418.83,
+    "High": 438.84,
+    "Low": 417.46,
+    "Close": 436.8,
+    "Adj Close": 433.61,
+    "Volume": 100255600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2023",
+    "Open": 385.09,
+    "High": 421.12,
+    "Low": 384.62,
+    "Close": 419.4,
+    "Adj Close": 416.34,
+    "Volume": 87596800
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2023",
+    "Open": 391.9,
+    "High": 402.5,
+    "Low": 375.95,
+    "Close": 384.17,
+    "Adj Close": 381.36,
+    "Volume": 112733000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2023",
+    "Open": 416.46,
+    "High": 416.88,
+    "Low": 389.45,
+    "Close": 392.7,
+    "Adj Close": 388.35,
+    "Volume": 85361800
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2023",
+    "Open": 419.26,
+    "High": 420.08,
+    "Low": 397.85,
+    "Close": 413.83,
+    "Adj Close": 409.25,
+    "Volume": 87472600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2023",
+    "Open": 406.92,
+    "High": 422.15,
+    "Low": 401.56,
+    "Close": 420.68,
+    "Adj Close": 416.02,
+    "Volume": 75235500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2023",
+    "Open": 384.2,
+    "High": 408.76,
+    "Low": 382.97,
+    "Close": 407.28,
+    "Adj Close": 401.19,
+    "Volume": 87009900
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2023",
+    "Open": 381.73,
+    "High": 388.26,
+    "Low": 370.92,
+    "Close": 383.89,
+    "Adj Close": 378.15,
+    "Volume": 74581000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2023",
+    "Open": 375.6,
+    "High": 382.12,
+    "Low": 370.98,
+    "Close": 382.05,
+    "Adj Close": 376.34,
+    "Volume": 59258500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2023",
+    "Open": 363.34,
+    "High": 376.34,
+    "Low": 349.76,
+    "Close": 376.07,
+    "Adj Close": 368.93,
+    "Volume": 98871600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2023",
+    "Open": 372.44,
+    "High": 384.41,
+    "Low": 361.73,
+    "Close": 364.11,
+    "Adj Close": 357.2,
+    "Volume": 70620000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2023",
+    "Open": 353.18,
+    "High": 375.08,
+    "Low": 347.19,
+    "Close": 373.44,
+    "Adj Close": 366.35,
+    "Volume": 76686800
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2022",
+    "Open": 375.87,
+    "High": 377.19,
+    "Low": 344.34,
+    "Close": 351.34,
+    "Adj Close": 343.03,
+    "Volume": 94160600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2022",
+    "Open": 358.53,
+    "High": 374.59,
+    "Low": 338.9,
+    "Close": 374.49,
+    "Adj Close": 365.63,
+    "Volume": 78851100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2022",
+    "Open": 331.79,
+    "High": 357.98,
+    "Low": 319.87,
+    "Close": 354.95,
+    "Adj Close": 346.55,
+    "Volume": 99168300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2022",
+    "Open": 361.1,
+    "High": 378.51,
+    "Low": 328.12,
+    "Close": 328.3,
+    "Adj Close": 319.13,
+    "Volume": 110165900
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2022",
+    "Open": 376.12,
+    "High": 396.89,
+    "Low": 363.11,
+    "Close": 363.15,
+    "Adj Close": 353,
+    "Volume": 82930500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2022",
+    "Open": 346.16,
+    "High": 379.66,
+    "Low": 341.05,
+    "Close": 378.79,
+    "Adj Close": 368.21,
+    "Volume": 91517600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2022",
+    "Open": 381.61,
+    "High": 383.74,
+    "Low": 334.24,
+    "Close": 346.88,
+    "Adj Close": 335.81,
+    "Volume": 118457600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2022",
+    "Open": 378.79,
+    "High": 394.93,
+    "Low": 349.76,
+    "Close": 379.68,
+    "Adj Close": 367.57,
+    "Volume": 142832100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2022",
+    "Open": 416.68,
+    "High": 420.82,
+    "Low": 378,
+    "Close": 378.7,
+    "Adj Close": 366.62,
+    "Volume": 109706000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2022",
+    "Open": 400.01,
+    "High": 424.72,
+    "Low": 381.64,
+    "Close": 415.17,
+    "Adj Close": 400.57,
+    "Volume": 137200500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2022",
+    "Open": 414.34,
+    "High": 421.18,
+    "Low": 377.5,
+    "Close": 401.36,
+    "Adj Close": 387.25,
+    "Volume": 178146000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2022",
+    "Open": 437.93,
+    "High": 441.26,
+    "Low": 386.84,
+    "Close": 413.69,
+    "Adj Close": 399.15,
+    "Volume": 209400200
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2021",
+    "Open": 424.47,
+    "High": 440.36,
+    "Low": 412.77,
+    "Close": 436.57,
+    "Adj Close": 419.68,
+    "Volume": 142346700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2021",
+    "Open": 423.19,
+    "High": 435.41,
+    "Low": 418.63,
+    "Close": 419.06,
+    "Adj Close": 402.85,
+    "Volume": 100234600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2021",
+    "Open": 396.23,
+    "High": 422.52,
+    "Low": 391.96,
+    "Close": 422.16,
+    "Adj Close": 405.83,
+    "Volume": 93891000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2021",
+    "Open": 416.05,
+    "High": 417.44,
+    "Low": 394.34,
+    "Close": 394.4,
+    "Adj Close": 377.91,
+    "Volume": 103242900
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2021",
+    "Open": 404.78,
+    "High": 416.56,
+    "Low": 400.92,
+    "Close": 415.05,
+    "Adj Close": 397.69,
+    "Volume": 81081600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2021",
+    "Open": 394.3,
+    "High": 406.13,
+    "Low": 387.93,
+    "Close": 403.15,
+    "Adj Close": 386.29,
+    "Volume": 87927300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2021",
+    "Open": 388.5,
+    "High": 394.45,
+    "Low": 382.52,
+    "Close": 393.52,
+    "Adj Close": 375.79,
+    "Volume": 68945800
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2021",
+    "Open": 385.56,
+    "High": 388.68,
+    "Low": 372.13,
+    "Close": 386.13,
+    "Adj Close": 368.73,
+    "Volume": 91773000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2021",
+    "Open": 366.2,
+    "High": 386.74,
+    "Low": 366.03,
+    "Close": 383.57,
+    "Adj Close": 366.29,
+    "Volume": 77399700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2021",
+    "Open": 354.55,
+    "High": 366.05,
+    "Low": 341.92,
+    "Close": 364.3,
+    "Adj Close": 346.66,
+    "Volume": 115891100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2021",
+    "Open": 343.63,
+    "High": 362.37,
+    "Low": 341.4,
+    "Close": 349.59,
+    "Adj Close": 332.66,
+    "Volume": 65396000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2021",
+    "Open": 345.02,
+    "High": 354.65,
+    "Low": 335.37,
+    "Close": 340.18,
+    "Adj Close": 323.71,
+    "Volume": 67310300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2020",
+    "Open": 335.92,
+    "High": 344.37,
+    "Low": 333.77,
+    "Close": 343.69,
+    "Adj Close": 325.72,
+    "Volume": 62114200
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2020",
+    "Open": 303.37,
+    "High": 335.2,
+    "Low": 300.63,
+    "Close": 332.64,
+    "Adj Close": 315.25,
+    "Volume": 67817500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2020",
+    "Open": 310.16,
+    "High": 325.22,
+    "Low": 296.37,
+    "Close": 299.82,
+    "Adj Close": 284.14,
+    "Volume": 62731400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2020",
+    "Open": 321.81,
+    "High": 329.67,
+    "Low": 295.04,
+    "Close": 307.65,
+    "Adj Close": 290.33,
+    "Volume": 74308600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2020",
+    "Open": 301.65,
+    "High": 322.83,
+    "Low": 301.13,
+    "Close": 321.02,
+    "Adj Close": 302.94,
+    "Volume": 61300400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2020",
+    "Open": 284.37,
+    "High": 300.62,
+    "Low": 283.95,
+    "Close": 300.1,
+    "Adj Close": 283.2,
+    "Volume": 73796600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2020",
+    "Open": 279.07,
+    "High": 297.32,
+    "Low": 272.77,
+    "Close": 283.43,
+    "Adj Close": 266.09,
+    "Volume": 98699000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2020",
+    "Open": 262.14,
+    "High": 282.04,
+    "Low": 253.97,
+    "Close": 279.75,
+    "Adj Close": 262.63,
+    "Volume": 92558000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2020",
+    "Open": 227.92,
+    "High": 271,
+    "Low": 224.13,
+    "Close": 267.1,
+    "Adj Close": 250.76,
+    "Volume": 149156600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2020",
+    "Open": 274,
+    "High": 288.32,
+    "Low": 200.55,
+    "Close": 236.82,
+    "Adj Close": 221.29,
+    "Volume": 281765600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2020",
+    "Open": 297.12,
+    "High": 311.59,
+    "Low": 262.25,
+    "Close": 271.74,
+    "Adj Close": 253.92,
+    "Volume": 99630500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2020",
+    "Open": 297.29,
+    "High": 305.92,
+    "Low": 294.35,
+    "Close": 295.69,
+    "Adj Close": 276.3,
+    "Volume": 66810800
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2019",
+    "Open": 289.03,
+    "High": 297.51,
+    "Low": 282.1,
+    "Close": 295.8,
+    "Adj Close": 275.07,
+    "Volume": 56497300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2019",
+    "Open": 280.05,
+    "High": 289.78,
+    "Low": 279.91,
+    "Close": 288.65,
+    "Adj Close": 268.42,
+    "Volume": 43686600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2019",
+    "Open": 273.44,
+    "High": 279.69,
+    "Low": 261.59,
+    "Close": 278.55,
+    "Adj Close": 259.03,
+    "Volume": 52876500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2019",
+    "Open": 266.83,
+    "High": 277.98,
+    "Low": 265.68,
+    "Close": 272.6,
+    "Adj Close": 252.29,
+    "Volume": 45894200
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2019",
+    "Open": 273.28,
+    "High": 276.28,
+    "Low": 258.7,
+    "Close": 268.6,
+    "Adj Close": 248.59,
+    "Volume": 76101400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2019",
+    "Open": 272.46,
+    "High": 277.55,
+    "Low": 270.3,
+    "Close": 273.08,
+    "Adj Close": 252.74,
+    "Volume": 55490400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2019",
+    "Open": 252.83,
+    "High": 272.79,
+    "Low": 250.77,
+    "Close": 269.15,
+    "Adj Close": 247.81,
+    "Volume": 48686500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2019",
+    "Open": 270.68,
+    "High": 270.87,
+    "Low": 252.77,
+    "Close": 252.87,
+    "Adj Close": 232.82,
+    "Volume": 72318000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2019",
+    "Open": 261.46,
+    "High": 270.41,
+    "Low": 261.19,
+    "Close": 270.01,
+    "Adj Close": 248.6,
+    "Volume": 41351400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2019",
+    "Open": 257.81,
+    "High": 262.59,
+    "Low": 250.34,
+    "Close": 259.54,
+    "Adj Close": 237.63,
+    "Volume": 62970600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2019",
+    "Open": 248.31,
+    "High": 258.61,
+    "Low": 246.2,
+    "Close": 256.07,
+    "Adj Close": 234.45,
+    "Volume": 57656000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2019",
+    "Open": 226.18,
+    "High": 248.53,
+    "Low": 223.97,
+    "Close": 248.01,
+    "Adj Close": 227.07,
+    "Volume": 81247700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2018",
+    "Open": 257.65,
+    "High": 257.74,
+    "Low": 214.83,
+    "Close": 229.81,
+    "Adj Close": 209.27,
+    "Volume": 128542800
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2018",
+    "Open": 249.63,
+    "High": 258.44,
+    "Low": 241.73,
+    "Close": 253.48,
+    "Adj Close": 230.83,
+    "Volume": 61115400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2018",
+    "Open": 268.46,
+    "High": 269.47,
+    "Low": 238.79,
+    "Close": 248.79,
+    "Adj Close": 226.56,
+    "Volume": 91439900
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2018",
+    "Open": 266.35,
+    "High": 270.67,
+    "Low": 263.45,
+    "Close": 267.05,
+    "Adj Close": 242.09,
+    "Volume": 48732300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2018",
+    "Open": 258.64,
+    "High": 268.05,
+    "Low": 256.48,
+    "Close": 266.72,
+    "Adj Close": 241.79,
+    "Volume": 49555700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2018",
+    "Open": 247.56,
+    "High": 261.25,
+    "Low": 247.32,
+    "Close": 258.4,
+    "Adj Close": 234.25,
+    "Volume": 45574600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2018",
+    "Open": 250.23,
+    "High": 256.77,
+    "Low": 246.63,
+    "Close": 249.51,
+    "Adj Close": 225.14,
+    "Volume": 54654400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2018",
+    "Open": 242.45,
+    "High": 251.94,
+    "Low": 237.92,
+    "Close": 248.79,
+    "Adj Close": 224.49,
+    "Volume": 43981400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2018",
+    "Open": 241.19,
+    "High": 249.22,
+    "Low": 233.92,
+    "Close": 242.92,
+    "Adj Close": 219.19,
+    "Volume": 57319400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2018",
+    "Open": 249.53,
+    "High": 257.71,
+    "Low": 237.53,
+    "Close": 242.08,
+    "Adj Close": 217.44,
+    "Volume": 63873500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2018",
+    "Open": 258.29,
+    "High": 260.12,
+    "Low": 232.42,
+    "Close": 249.34,
+    "Adj Close": 223.96,
+    "Volume": 88662700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2018",
+    "Open": 246.15,
+    "High": 263.37,
+    "Low": 245.74,
+    "Close": 258.99,
+    "Adj Close": 232.63,
+    "Volume": 63544700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2017",
+    "Open": 243.25,
+    "High": 248.01,
+    "Low": 239.52,
+    "Close": 245.29,
+    "Adj Close": 219.27,
+    "Volume": 44190300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2017",
+    "Open": 237.03,
+    "High": 244.4,
+    "Low": 234.82,
+    "Close": 243.35,
+    "Adj Close": 217.53,
+    "Volume": 43311300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2017",
+    "Open": 231,
+    "High": 236.88,
+    "Low": 230.91,
+    "Close": 236.13,
+    "Adj Close": 211.08,
+    "Volume": 33049800
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2017",
+    "Open": 227.76,
+    "High": 230.9,
+    "Low": 224.98,
+    "Close": 230.76,
+    "Adj Close": 205.23,
+    "Volume": 33381500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2017",
+    "Open": 227.3,
+    "High": 228.62,
+    "Low": 222.12,
+    "Close": 227.3,
+    "Adj Close": 202.15,
+    "Volume": 37622400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2017",
+    "Open": 223.09,
+    "High": 227.78,
+    "Low": 220.72,
+    "Close": 226.64,
+    "Adj Close": 201.56,
+    "Volume": 37712000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2017",
+    "Open": 222.14,
+    "High": 225.77,
+    "Low": 220.42,
+    "Close": 222.06,
+    "Adj Close": 196.6,
+    "Volume": 43549300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2017",
+    "Open": 219.16,
+    "High": 222.24,
+    "Low": 216.13,
+    "Close": 221.67,
+    "Adj Close": 196.25,
+    "Volume": 40652300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2017",
+    "Open": 216.51,
+    "High": 219.9,
+    "Low": 213.47,
+    "Close": 218.6,
+    "Adj Close": 193.54,
+    "Volume": 39168600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2017",
+    "Open": 218.9,
+    "High": 220.66,
+    "Low": 212.62,
+    "Close": 216.35,
+    "Adj Close": 190.66,
+    "Volume": 47641500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2017",
+    "Open": 209.62,
+    "High": 217.9,
+    "Low": 208.23,
+    "Close": 217.07,
+    "Adj Close": 191.29,
+    "Volume": 35460000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2017",
+    "Open": 206.68,
+    "High": 210.9,
+    "Low": 205.56,
+    "Close": 208.97,
+    "Adj Close": 184.15,
+    "Volume": 57281100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2016",
+    "Open": 202.68,
+    "High": 209.7,
+    "Low": 201.24,
+    "Close": 205.31,
+    "Adj Close": 179.8,
+    "Volume": 52301600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2016",
+    "Open": 195.52,
+    "High": 203.69,
+    "Low": 191.32,
+    "Close": 202.4,
+    "Adj Close": 177.26,
+    "Volume": 52732400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2016",
+    "Open": 198.18,
+    "High": 198.95,
+    "Low": 193.92,
+    "Close": 195.13,
+    "Adj Close": 170.89,
+    "Volume": 33929400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2016",
+    "Open": 199.5,
+    "High": 201.15,
+    "Low": 194.12,
+    "Close": 198.69,
+    "Adj Close": 173.23,
+    "Volume": 44978100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2016",
+    "Open": 199.33,
+    "High": 201.51,
+    "Low": 196.88,
+    "Close": 199.52,
+    "Adj Close": 173.96,
+    "Volume": 43949700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2016",
+    "Open": 192.09,
+    "High": 199.6,
+    "Low": 189.97,
+    "Close": 199.28,
+    "Adj Close": 173.75,
+    "Volume": 41945100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2016",
+    "Open": 191.88,
+    "High": 194.95,
+    "Low": 182.27,
+    "Close": 192.2,
+    "Adj Close": 166.74,
+    "Volume": 61825000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2016",
+    "Open": 189.81,
+    "High": 193.27,
+    "Low": 185.97,
+    "Close": 192.54,
+    "Adj Close": 167.04,
+    "Volume": 38163000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2016",
+    "Open": 187.4,
+    "High": 193.43,
+    "Low": 186.26,
+    "Close": 189.22,
+    "Adj Close": 164.16,
+    "Volume": 42415400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2016",
+    "Open": 178.84,
+    "High": 189.72,
+    "Low": 178.33,
+    "Close": 188.56,
+    "Adj Close": 162.71,
+    "Volume": 50007300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2016",
+    "Open": 176.61,
+    "High": 180.36,
+    "Low": 166.05,
+    "Close": 177.38,
+    "Adj Close": 153.06,
+    "Volume": 54708700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2016",
+    "Open": 183.77,
+    "High": 185.12,
+    "Low": 165.96,
+    "Close": 177.75,
+    "Adj Close": 153.38,
+    "Volume": 82617200
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2015",
+    "Open": 192.05,
+    "High": 193.45,
+    "Low": 183.31,
+    "Close": 186.93,
+    "Adj Close": 160.35,
+    "Volume": 62486000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2015",
+    "Open": 190.98,
+    "High": 194.06,
+    "Low": 185.36,
+    "Close": 191.37,
+    "Adj Close": 164.16,
+    "Volume": 38629500
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2015",
+    "Open": 175.97,
+    "High": 192,
+    "Low": 173.35,
+    "Close": 190.56,
+    "Adj Close": 163.46,
+    "Volume": 38175300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2015",
+    "Open": 177.11,
+    "High": 185.99,
+    "Low": 171.36,
+    "Close": 175.71,
+    "Adj Close": 149.93,
+    "Volume": 57666300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2015",
+    "Open": 193,
+    "High": 193.75,
+    "Low": 168.08,
+    "Close": 181.11,
+    "Adj Close": 154.53,
+    "Volume": 75872400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2015",
+    "Open": 190.65,
+    "High": 195.46,
+    "Low": 187.19,
+    "Close": 192.95,
+    "Adj Close": 164.64,
+    "Volume": 35084700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2015",
+    "Open": 194.23,
+    "High": 195.53,
+    "Low": 188.24,
+    "Close": 188.84,
+    "Adj Close": 160.38,
+    "Volume": 32509600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2015",
+    "Open": 191.96,
+    "High": 195.95,
+    "Low": 189.53,
+    "Close": 193.49,
+    "Adj Close": 164.33,
+    "Volume": 25759100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2015",
+    "Open": 189.17,
+    "High": 194.74,
+    "Low": 187.47,
+    "Close": 191.1,
+    "Adj Close": 162.3,
+    "Volume": 30252000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2015",
+    "Open": 193.31,
+    "High": 194.47,
+    "Low": 187.15,
+    "Close": 189.2,
+    "Adj Close": 159.87,
+    "Volume": 35632400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2015",
+    "Open": 183.5,
+    "High": 194.65,
+    "Low": 181.47,
+    "Close": 193.2,
+    "Adj Close": 163.25,
+    "Volume": 30737100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2015",
+    "Open": 189.29,
+    "High": 189.72,
+    "Low": 182.09,
+    "Close": 182.99,
+    "Adj Close": 154.62,
+    "Volume": 51629600
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Dec 1, 2014",
+    "Open": 189.29,
+    "High": 191.63,
+    "Low": 181.44,
+    "Close": 188.4,
+    "Adj Close": 159.19,
+    "Volume": 49040300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Nov 1, 2014",
+    "Open": 185.2,
+    "High": 190.63,
+    "Low": 183.45,
+    "Close": 190.03,
+    "Adj Close": 160.57,
+    "Volume": 27698100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Oct 1, 2014",
+    "Open": 180.34,
+    "High": 185.05,
+    "Low": 166.85,
+    "Close": 184.93,
+    "Adj Close": 156.26,
+    "Volume": 47152300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Sep 1, 2014",
+    "Open": 184.3,
+    "High": 185.84,
+    "Low": 179.77,
+    "Close": 180.59,
+    "Adj Close": 151.87,
+    "Volume": 17064700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Aug 1, 2014",
+    "Open": 176.52,
+    "High": 184.17,
+    "Low": 174.7,
+    "Close": 183.99,
+    "Adj Close": 154.73,
+    "Volume": 23864300
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jul 1, 2014",
+    "Open": 179.88,
+    "High": 182.5,
+    "Low": 176.96,
+    "Close": 176.96,
+    "Adj Close": 148.82,
+    "Volume": 18901400
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jun 1, 2014",
+    "Open": 176.83,
+    "High": 180.57,
+    "Low": 175.94,
+    "Close": 179.43,
+    "Adj Close": 150.22,
+    "Volume": 19356700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "May 1, 2014",
+    "Open": 172.5,
+    "High": 176.69,
+    "Low": 170.44,
+    "Close": 176.55,
+    "Adj Close": 147.81,
+    "Volume": 20604100
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Apr 1, 2014",
+    "Open": 171.87,
+    "High": 173.82,
+    "Low": 166.11,
+    "Close": 172.59,
+    "Adj Close": 144.49,
+    "Volume": 27491700
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Mar 1, 2014",
+    "Open": 169.19,
+    "High": 173.19,
+    "Low": 168.38,
+    "Close": 171.35,
+    "Adj Close": 142.8,
+    "Volume": 24621000
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Feb 1, 2014",
+    "Open": 163.02,
+    "High": 171.47,
+    "Low": 159.18,
+    "Close": 170.63,
+    "Adj Close": 142.2,
+    "Volume": 24164200
+  },
+  {
+    "Ticker": "VOO",
+    "Date": "Jan 1, 2014",
+    "Open": 168.53,
+    "High": 169.43,
+    "Low": 162.07,
+    "Close": 163.18,
+    "Adj Close": 135.99,
+    "Volume": 29636000
+  }
+]

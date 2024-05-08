@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 const {csv,select,scaleLinear,map,scaleBand,axisBottom,axisLeft,bin,max,range,format,selectAll,line,bisect} = d3;
 const margin = {top:20,bottom:20,right:10,left:40}
-const width = window.innerWidth * .66
+const width = window.innerWidth * .4
 const height = window.innerHeight * .5
 //Holds thresholds attribute values have to be between. For categorical data, the threshold is the index of the category options
 var attributeTresholds = []
@@ -13,9 +13,28 @@ var slider1Coordinates = []
 //Holds coordinates for lower slider
 var slider2Coordinates = []
 
+const ATTR_FONT_SIZE = 8
+
 
 function Pcp({colorMapping, categoryNames,allData,label, pcpAxisOrder, setPcpAxisOrder}) {
-var [pcpRenderer,setPcpRerenderer] = useState(0)
+    var [pcpRenderer,setPcpRerenderer] = useState(0)
+    var displayedCategoryNames = []
+    categoryNames.forEach((attr,i)=>{
+        if(attr !== "EBITDA"){
+            if(attr.split(" ").length>1){
+                displayedCategoryNames.push(attr.split(" ")[0].substring(0,3)+". "+attr.split(" ")[1].substring(0,3)+".")
+            }
+            else if(attr.length<=6){
+                displayedCategoryNames.push(attr)
+            }
+            else{
+                displayedCategoryNames.push(attr.substring(0,3))
+            }
+        }
+        else{
+            displayedCategoryNames.push(attr)
+        }
+    })
 
     if(allData!=undefined&&allData[0]!=undefined){
         let listOfLists = []
@@ -64,7 +83,7 @@ var [pcpRenderer,setPcpRerenderer] = useState(0)
                 const yDomain = OPTIONS
                 const yRange = [height - margin.bottom, margin.top+margin.top]
                 const yScale = scaleBand(yDomain,yRange).padding(1)
-                dictOfScales[categoryNames[pcpAxisOrder[j]]] = yScale
+                dictOfScales[displayedCategoryNames[pcpAxisOrder[j]]] = yScale
                 slider1Coordinates.push(yScale(OPTIONS[OPTIONS.length-1]))
                 slider2Coordinates.push(yScale(OPTIONS[0]))
                 attributeTresholds.push([0,OPTIONS.length-1])
@@ -74,6 +93,7 @@ var [pcpRenderer,setPcpRerenderer] = useState(0)
                 .attr('id', 'pcpAxis' + axisIndex)
                 .attr('class', 'pcpAxis')
                 .style('stroke-width', '2px')
+                .style("font-size",ATTR_FONT_SIZE+"px")
                 .call(d3.drag()
                 .on('drag', function(event) {
                     select(this).attr("transform", `translate(${Math.max(margin.left, Math.min(width - margin.right, event.x))}, 0)`);
@@ -81,7 +101,7 @@ var [pcpRenderer,setPcpRerenderer] = useState(0)
                 .on('end',function(event){
                     //When users drops the slider, it snaps to the nearest tick
                     var listOfxScaleValues = []
-                    for(let index = 0;index<categoryNames.length;index++){
+                    for(let index = 0;index<displayedCategoryNames.length;index++){
                         listOfxScaleValues.push(pcpXScale(index))
                     }
                     // Snap to the nearest category position
@@ -114,7 +134,7 @@ var [pcpRenderer,setPcpRerenderer] = useState(0)
                     //Rerender pcp somehow
                     setPcpRerenderer(pcpRenderer+1)
                 })
-            ).call(yAxis).append("text").style("text-anchor", "middle").attr('id','pcpText'+axisIndex).attr("y", margin.top*1.5).text(categoryNames[pcpAxisOrder[j]]).style("fill", "white")
+            ).call(yAxis).append("text").style("text-anchor", "middle").attr('id','pcpText'+axisIndex).attr("y", margin.top*1.5).text(displayedCategoryNames[pcpAxisOrder[j]]).style("fill", "white").style("font-size",ATTR_FONT_SIZE+"px")
             //Upper slider
             svg.append("circle")
                 .attr("cx", pcpXScale(j))
@@ -218,7 +238,7 @@ var [pcpRenderer,setPcpRerenderer] = useState(0)
                 const yScale = scaleLinear(yDomain,yRange)
                 const invertedYscale = scaleLinear(yRange,yDomain)
                 attributeTresholds.push([invertedYscale.range()[0],invertedYscale.range()[1]])
-                dictOfScales[categoryNames[pcpAxisOrder[j]]] = yScale
+                dictOfScales[displayedCategoryNames[pcpAxisOrder[j]]] = yScale
                 slider1Coordinates.push(yScale(Math.max(...dataColumnj)))
                 slider2Coordinates.push(yScale(Math.min(...dataColumnj)))
                 const yAxis= axisLeft(yScale)
@@ -228,6 +248,7 @@ var [pcpRenderer,setPcpRerenderer] = useState(0)
                 .attr('id', 'pcpAxis' + axisIndex)
                 .attr('class', 'pcpAxis')
                 .style('stroke-width', '2px')
+                .style("font-size",ATTR_FONT_SIZE+"px")
                 .call(d3.drag()
                 .on('drag', function(event) {
                     select(this).attr("transform", `translate(${Math.max(margin.left, Math.min(width - margin.right, event.x))}, 0)`);
@@ -273,7 +294,7 @@ var [pcpRenderer,setPcpRerenderer] = useState(0)
                     makePcpPlot()
                     */
                 })
-            ).call(yAxis).append("text").style("text-anchor", "middle").attr('id','pcpText'+axisIndex).attr("y", margin.top*1.5).text(categoryNames[pcpAxisOrder[j]]).style("fill", "white")
+            ).call(yAxis).append("text").style("text-anchor", "middle").attr('id','pcpText'+axisIndex).attr("y", margin.top*1.5).text(displayedCategoryNames[pcpAxisOrder[j]]).style("fill", "white").style("font-size",ATTR_FONT_SIZE+"px")
             //Upper slider
             svg.append("circle")
                 .attr("cx", pcpXScale(j))
@@ -310,32 +331,39 @@ var [pcpRenderer,setPcpRerenderer] = useState(0)
             }
             
         }
-        
+        //Used to color the lines by ticker
+        let colorIndex=0
+        let lineIndex = 0;
        //Making the lines that go through the axes
        for(let j = 0;j<allData.length;j++){
            let validRow = true;
-           for(let index = 0;index<categoryNames.length;index++){
+           for(let index = 0;index<displayedCategoryNames.length;index++){
                if(typeof allData[j][pcpAxisOrder[index]] === 'string'){
-                   let valueIndex = dictOfScales[categoryNames[pcpAxisOrder[index]]].domain().indexOf(allData[j][pcpAxisOrder[index]])
+                   let valueIndex = dictOfScales[displayedCategoryNames[pcpAxisOrder[index]]].domain().indexOf(allData[j][pcpAxisOrder[index]])
                    if(valueIndex<attributeTresholds[pcpAxisOrder[index]][0] || valueIndex>attributeTresholds[pcpAxisOrder[index]][1]){
-                       index = categoryNames.length+1
+                       index = displayedCategoryNames.length+1
                        validRow=false
                     }
                 }
                 else{
                     let valueOfRowElement = parseFloat(allData[j][pcpAxisOrder[index]])
                     if(valueOfRowElement<attributeTresholds[pcpAxisOrder[index]][0] || valueOfRowElement>attributeTresholds[pcpAxisOrder[index]][1]){
-                        index = categoryNames.length+1
+                        index = displayedCategoryNames.length+1
                         validRow=false
                     }
                 }
             }
             if(validRow){
-                for(let index = 1;index<categoryNames.length;index++){
-                    svg.append("path").attr("id", "line"+label[j]).style("fill", "none" ).style("stroke", colorMapping[label[j]]).style("opacity", '0.8').attr("d",(d,i)=>{
-                        return 'M'+pcpXScale(index-1)+","+(dictOfScales[categoryNames[pcpAxisOrder[index-1]]](allData[j][pcpAxisOrder[index-1]]))+ ' L' + pcpXScale(index)+","+(dictOfScales[categoryNames[pcpAxisOrder[index]]](allData[j][pcpAxisOrder[index]]))
+                for(let index = 1;index<displayedCategoryNames.length;index++){
+                    svg.append("path").attr("id", "line"+lineIndex).style("fill", "none" ).style("stroke", colorMapping[colorIndex]).style("opacity", '.8').style('stroke-width', '.6px').attr("d",(d,i)=>{
+                        return 'M'+pcpXScale(index-1)+","+(dictOfScales[displayedCategoryNames[pcpAxisOrder[index-1]]](allData[j][pcpAxisOrder[index-1]]))+ ' L' + pcpXScale(index)+","+(dictOfScales[displayedCategoryNames[pcpAxisOrder[index]]](allData[j][pcpAxisOrder[index]]))
                     })
+                    lineIndex++
                 }
+            }
+            //When the next ticker is being iterated through, changes the color
+            if(j>0&&j%(allData.length/10)==0){
+                colorIndex++
             }
             
         }
