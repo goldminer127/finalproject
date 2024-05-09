@@ -144,9 +144,9 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                 for(let i = 0;i<vooData.length;i++){
                     let date = new Date(vooData[i][1])
                     //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
-                    if(date.getFullYear()>startDateObj.getFullYear()&&date.getFullYear()<endDateObj.getFullYear()||
-                    (date.getFullYear()==startDateObj.getFullYear()&&date.getMonth()>startDateObj.getMonth())||
-                    (date.getFullYear()==endDateObj.getFullYear()&&date.getMonth()<endDateObj.getMonth())){
+                    if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
+                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
+                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
                         vooClosingValues.push(vooData[i][5])
                     }
                 }
@@ -164,9 +164,9 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                 for(let i = 0;i<allData.length;i++){
                     let date = new Date(allData[i][1])
                     //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
-                    if(date.getFullYear()>startDateObj.getFullYear()&&date.getFullYear()<endDateObj.getFullYear()||
-                    (date.getFullYear()==startDateObj.getFullYear()&&date.getMonth()>=startDateObj.getMonth())||
-                    (date.getFullYear()==endDateObj.getFullYear()&&date.getMonth()<=endDateObj.getMonth())){
+                    if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
+                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
+                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
                         //For every months * years, it moves on to the next ticker
                         if(i>0&&i%(12*10)==0){
                             compositeClosingValues.push(tempList)
@@ -247,7 +247,7 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                     //Displaying x-label
                     svg.append("text").attr("class","axis-label").attr("x",width/2).attr("y",height-5).style("fill","white").text("Time")
                     //Displaying y-label
-                    svg.append("text").attr("class","axis-label").attr("transform", "rotate(-90)").attr("x",(-height/2)-(margin.top)).attr("y",margin.left/3).style("fill","white").text("Profit")
+                    svg.append("text").attr("class","axis-label").attr("transform", "rotate(-90)").attr("x",(-height/2)-(margin.top)).attr("y",margin.left/3).style("fill","white").text("Profit ($)")
                     //Displaying the title
                     svg.append("text").attr("class","chart-title").attr("text-anchor","middle").attr("x", width/2).attr("y",margin.top).style("fill","white").text("Stock Visualizer")
 
@@ -277,6 +277,16 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                     })
                     //Displaying the path
                     svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width','1').attr('d',path)
+                    path = 'M'+monthlyScale(monthlyDates[monthlyDates.length-1])+" , "+(yScale(compositeProfitList[compositeProfitList.length-1]))+" "
+                    path += 'L'+(monthlyScale(monthlyDates[monthlyDates.length-1]))+" , "+(yScale(vooProfitList[vooProfitList.length-1]))+" "
+                    svg.append("path")
+                    .attr("d", path)
+                    .attr("stroke", "white")
+                    .attr("stroke-width", 2)
+                    .attr("fill", "none")
+                    .attr("stroke-dasharray", "5,5"); // Set the dash pattern
+                    let difference = Math.max(compositeProfitList[compositeProfitList.length-1],vooProfitList[vooProfitList.length-1])-Math.min(compositeProfitList[compositeProfitList.length-1],vooProfitList[vooProfitList.length-1])
+                    svg.append('text').attr('fill','white').attr('x',(monthlyScale(monthlyDates[monthlyDates.length-1])-45)).attr('y',(yScale(vooProfitList[vooProfitList.length-1])+yScale(compositeProfitList[compositeProfitList.length-1]))/2).style('font-size','10px').text("$"+difference.toFixed(2))
                     //Legend
                     path = 'M'+(width-margin.right-100)+" , "+(margin.top)+" L "+(width-margin.right-50)+" , "+(margin.top)
                     svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width',"1").attr('d',path)

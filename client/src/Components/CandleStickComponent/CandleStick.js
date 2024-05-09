@@ -69,6 +69,7 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
             }
             var xDomain = yearlyDates
             let monthList = []
+            
             if (intEndYear - intStartYear <= 2) {
                 for (let date = new Date(startDateObj); date < endDateObj; date.setMonth(date.getMonth() + ((intEndYear - intStartYear) + 1))) {
 
@@ -76,6 +77,7 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 }
                 xDomain = monthList
             }
+            
             const monthlyDomain = monthlyDates
             const monthlyRange = [margin.left, width - margin.right]
             const monthlyScale = d3.scaleBand(monthlyDomain, monthlyRange).padding(.1)
@@ -112,16 +114,20 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 .text('Candle Stick Plot');
             
             for(let i = 0;i<data.length;i++){
-                let d = new Date(data[i][0])
+                let date = new Date(data[i][0])
+                if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
+                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
+                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
                 let arr = data[i][1]
 
                 svg.append("line")
-                .attr("x1", monthlyScale(d))
-                .attr("x2", monthlyScale(d))
+                .attr("x1", monthlyScale(date))
+                .attr("x2", monthlyScale(date))
                 .attr("y1", y(arr[0]))
                 .attr("y2", y(arr[1]))
                 .attr("stroke", "white")
                 .style("width", 100)
+                    }
             }
             
             /*
@@ -145,16 +151,20 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 */
                 
                 for(let i = 0;i<data.length;i++){
-                    let d = new Date(data[i][0])
+                    let date = new Date(data[i][0])
+                    if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
+                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
+                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
                     let arr = data[i][1]
 
                     svg.append("rect")
-                .attr("x",monthlyScale(d) - 4/2)
+                .attr("x",monthlyScale(date) - 4/2)
                 .attr("y",y(Math.max(arr[2], arr[3])))
                 .attr("height", y(Math.min(arr[2], arr[3])) - y(Math.max(arr[2], arr[3])))
                 .attr("width", 4)
                 .attr("stroke", "white")
                 .style("fill", (arr[2] > arr[3]) ? "red" : "green")
+                    }
             }
             /*
             // Show the box

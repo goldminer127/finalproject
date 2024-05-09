@@ -55,7 +55,7 @@ function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, sto
                 <div className="ProfitLineGraphMenu-title">Menu</div>
                     <div className="ProfitLineGraphInput-group">
                         <div className='ProfitLineGraphInputInitialDepositContainer'>
-                            <label htmlFor="initial-deposit" className='ProfitLineGraphTextOrLabel' >Initial Deposit:</label>
+                            <label htmlFor="initial-deposit" className='ProfitLineGraphTextOrLabel' >Initial Deposit ($):</label>
                             <input 
                             type="number" 
                             id="initial-deposit" 
@@ -74,7 +74,7 @@ function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, sto
                 {tickerList.map((ticker, index) => (
                 <div className="ProfitLineGraphInput-group" key={index}>
                     <div className="ProfitLineGraphStock-inputs">
-                        <label htmlFor={`stock-${ticker}`} className='ProfitLineGraphTextOrLabel'>{ticker}:</label>
+                        <label htmlFor={`stock-${ticker}`} className='ProfitLineGraphTextOrLabel'>{ticker} (%):</label>
                         <input
                         type="number"
                         className='ProfitLineGraphinput'
@@ -92,9 +92,9 @@ function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, sto
                 ))}
                 <div id='ProfitLineGraphMenuStockTotal'>
                     {sumStockWeights==100?
-                        <p id='ProfitLineGraphMenuGoodSum'>Portfolio total: {sumStockWeights}</p>
+                        <p id='ProfitLineGraphMenuGoodSum'>Portfolio total: {sumStockWeights}%</p>
                         :
-                        <p id='ProfitLineGraphMenuBadSum'>Portfolio total: {sumStockWeights}</p>
+                        <p id='ProfitLineGraphMenuBadSum'>Portfolio total: {sumStockWeights}%</p>
                     }
                 </div>
                 <div className="ProfitLineGraphInput-group">

@@ -23,7 +23,7 @@ const months = {
 }
 
 function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, endDate, setEndDate, selectedStock, setSelectedStock, rerenderTrigger }) {
-    var [selectedStockIndex,setSelectedStockIndex] = useState(-1)
+    var [selectedStockIndex,setSelectedStockIndex] = useState(0)
     const svgRef = useRef();
     useEffect(() => {
         if (allData !== undefined && allData[0] !== undefined) {
@@ -59,8 +59,8 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
                 let date = new Date(vooData[i][1])
                 //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
                 if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
-                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() > startDateObj.getMonth()) ||
-                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() < endDateObj.getMonth())) {
+                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
+                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
                     vooClosingValues.push(vooData[i][5])
                 }
             }
@@ -73,8 +73,8 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
                 let date = new Date(allData[i][1])
                 //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
                 if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
-                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth()) ||
-                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() <= endDateObj.getMonth())) {
+                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
+                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
                     //For every months * years, it moves on to the next ticker
                     if (i > 0 && i % (12 * 10) == 0) {
                         compositeClosingValues.push(tempList)
