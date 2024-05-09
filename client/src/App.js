@@ -18,7 +18,24 @@ function App() {
     "labels": "labels",
     "varMDS": "varMDS",
     "corMatrix": "corMatrix"
-}
+  }
+  const attribute = {
+    "Open": 2,
+    "High": 3,
+    "Low": 4,
+    "Close": 5,
+    "Adj Close": 6,
+    "Volume": 7,
+    "Outstanding": 8,
+    "EPS": 9,
+    "corMatrix": 10,
+    "Net Income": 11,
+    "EBITDA": 12,
+    "Operating Income": 13,
+    "Gross Profit": 14,
+    "Revenue": 15,
+    "P/E Ratio": 16,
+  }
 const colorMapping = {
   0: "red",
   1: "orange",
@@ -52,10 +69,12 @@ const colorMapping = {
   let [label,setLabel] = useState([])
   let [variableMDScoordinates,setVariableMDScoordinates] = useState([])
   let [selectedAttributes, setSelectedAttributes] = useState(["Open","Close"])
-  let [rerender, setRerender] = useState("")
+  let [selectedStock, setSelectedStock] = useState("GOOGL")
+  let [rerender, triggerRerender] = useState("")
   //Add new 0 to the list for every fetch call
   let fetchCalls = useRef([0,0])
   useEffect(() =>{
+    /*
     if ((scatterPlotData.length <= 0 || rerender === "scatterPlot") && fetchCalls.current[0] === 0) {
       fetchCalls.current[0] = 1
       fetch("/api/getRawDataForManyAttributes", {
@@ -68,12 +87,22 @@ const colorMapping = {
         res => res.json()
       ).then(
         data => {
+          console.log(data)
           setScatterPlotData(data)
         },
         fetchCalls.current[0] = 0
       )
     }
-    
+    */
+    if(rerender === "scatterPlot")
+    {
+      triggerRerender("")
+      let tempArr = []
+      for(let i = 0; i < allData.length; i++) {
+        tempArr.push([allData[i][attribute[selectedAttributes[0]]], allData[i][attribute[selectedAttributes[1]]]])
+      }
+      setScatterPlotData(tempArr)
+    }
     if (fetchCalls.current[1] === 0) {
       fetchCalls.current[1] = 1
       fetch("/api/getInitialStats/", {
@@ -82,8 +111,9 @@ const colorMapping = {
         res => res.json()
       ).then(
         data => {
+          let rawData = data[api_variable_names["data"]]
           setCategoryNames(data[api_variable_names["categoryNames"]])
-          setAllData(data[api_variable_names["data"]])
+          setAllData(rawData)
           setVooData(data[api_variable_names["vooData"]])
           setKIndex(data[api_variable_names["kIndex"]])
           setElbowIndex(data[api_variable_names["elbowindex"]])
@@ -112,11 +142,16 @@ const colorMapping = {
             }
             setCategoryNames(tempCategoryList)
           }
+          let tempArr = []
+          for(let i = 0; i < rawData.length; i++) {
+            tempArr.push([rawData[i][attribute[selectedAttributes[0]]], rawData[i][attribute[selectedAttributes[1]]]])
+          }
+          setScatterPlotData(tempArr)
         },
         // fetchCalls.current[1] = 0
       )
     }
-  }, [])
+  })
   return (
       <div className="container">
         <div className="top-row">
@@ -125,7 +160,7 @@ const colorMapping = {
           {/* Candle plot */}
           <div className="box">Div 2</div>
           <div id="scatterPlotBox" className="box">
-            <ScatterPlot width={window.visualViewport.width * .28} height={window.visualViewport.height * .4} data={Object.keys(scatterPlotData).map((key) => scatterPlotData[key])[0]} xAxisLabel={"Open"} yAxisLabel={"Close"} xTicks={10} yTicks={10} />
+            <ScatterPlot width={window.innerWidth * .24} height={window.innerHeight * .32} data={scatterPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} attributes={Object.keys(attribute)} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender}/>
           </div>
         </div>
         <div className="bottom-row">
