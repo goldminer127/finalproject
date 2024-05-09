@@ -38,7 +38,7 @@ body{
 
 #pcpContainer,#compareContainer {
   flex-grow: 1; /* Make divs grow to fill available space */
-  height: 100%; /* Expand divs to take up available height */
+  height: 50vh; /* Expand divs to take up available height */
 }
 #pcpContainer{
   width: 40%; /* Each div takes up one-third of the width */

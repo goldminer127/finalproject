@@ -1,7 +1,9 @@
 import * as d3 from 'd3';
+import './ScatterPlot.css'
 import { useEffect, useRef } from "react";
+import VarDropdownMenu from '../VarDropdownMenu';
 
-const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTicks }) => {
+const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTicks, attributes, attributeState, selectionHandler, rerenderTrigger }) => {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -40,7 +42,7 @@ const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 .attr('fill', 'white')
                 .text(yAxisLabel);
             svg.append('text')
-                .attr('x', width/2)
+                .attr('x', width/2 - 20)
                 .attr('y', -10)
                 .attr('fill', 'white')
                 .text('Scatter Plot');
@@ -57,8 +59,16 @@ const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
     }, [data]);
 
     return (
-        <div style={{display:'flex', justifyContent:'center', alignItems:'center', marginTop:'30px'}}>
+        <div style={{display:'flex', flexDirection: 'column', justifyContent:'center', alignItems:'center', marginTop:'30px'}}>
             <svg ref={svgRef} />
+            <div style={{marginTop:'8%', background: 'lightgray', width: '90%', padding: '1%', display: 'flex', justifyContent:'center', alignItems:'center', borderRadius:'25px'}}>
+                <div className='drop-menu'>
+                    <VarDropdownMenu variables={attributes} displayText="x-axis" onChange={selectionHandler} axisControl={"x"} selectedAttr={attributeState} rerenderTrigger={rerenderTrigger}/>
+                </div>
+                <div className='drop-menu'>
+                    <VarDropdownMenu variables={attributes} displayText="y-axis" onChange={selectionHandler} axisControl={"y"} selectedAttr={attributeState} rerenderTrigger={rerenderTrigger}/>
+                </div>
+            </div>
         </div>
     );
 }
