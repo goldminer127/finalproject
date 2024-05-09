@@ -19,13 +19,17 @@ const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
             const x = d3.scaleLinear()
                 .domain([Math.min.apply(Math, data.map(entry => entry[0])), Math.max.apply(Math, data.map(entry => entry[0]))])
                 .range([0, width]);
-
             const y = d3.scaleLinear()
                 .domain([Math.min.apply(Math, data.map(entry => entry[1])), Math.max.apply(Math, data.map(entry => entry[1]))])
                 .range([height, 0]);
-
             const xAxis = d3.axisBottom(x).ticks(data.length).ticks((xTicks === undefined) ? 10 : xTicks);
             const yAxis = d3.axisLeft(y).ticks((yTicks === undefined) ? 10 : yTicks);
+            if(xAxisLabel === "Volume") {
+                xAxis.tickFormat(d3.format(".0e"))
+            }
+            if (yAxisLabel === "Volume") {
+                yAxis.tickFormat(d3.format(".0e"))
+            }
             svg.append('g')
                 .call(xAxis)
                 .attr('transform', 'translate(0,' + height + ')');

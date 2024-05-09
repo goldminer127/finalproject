@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import { useEffect, useRef } from "react";
 
-const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTicks,startDate,endDate}) => {
+const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTicks,startDate,endDate,selectedStock}) => {
     const svgRef = useRef();
     const margin = { top: 10, bottom: 40, right: 1, left: 30 }
     const months = {
@@ -112,6 +112,11 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 .attr('y', margin.top)
                 .attr('fill', 'white')
                 .text('Candle Stick Plot');
+            svg.append('text')
+                .attr('x', width / 7)
+                .attr('y', margin.top)
+                .attr('fill', 'white')
+                .text('Selected Stock: ' + selectedStock);
             
             for(let i = 0;i<data.length;i++){
                 let date = new Date(data[i][0])
