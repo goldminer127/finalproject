@@ -115,9 +115,7 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
             
             for(let i = 0;i<data.length;i++){
                 let date = new Date(data[i][0])
-                if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
-                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
-                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
+                if(date>=startDateObj&&date<=endDateObj){
                 let arr = data[i][1]
 
                 svg.append("line")
@@ -152,9 +150,7 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 
                 for(let i = 0;i<data.length;i++){
                     let date = new Date(data[i][0])
-                    if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
-                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
-                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
+                    if(date>=startDateObj&&date<=endDateObj){
                     let arr = data[i][1]
 
                     svg.append("rect")

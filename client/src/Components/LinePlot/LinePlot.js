@@ -58,9 +58,7 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
             for (let i = 0; i < vooData.length; i++) {
                 let date = new Date(vooData[i][1])
                 //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
-                if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
-                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
-                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
+                if(date>=startDateObj&&date<=endDateObj){
                     vooClosingValues.push(vooData[i][5])
                 }
             }
@@ -72,9 +70,7 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
             for (let i = 0; i < allData.length; i++) {
                 let date = new Date(allData[i][1])
                 //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
-                if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
-                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())||
-                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth() && date.getMonth() <= endDateObj.getMonth())) {
+                if(date>=startDateObj&&date<=endDateObj){
                     //For every months * years, it moves on to the next ticker
                     if (i > 0 && i % (12 * 10) == 0) {
                         compositeClosingValues.push(tempList)
