@@ -22,8 +22,8 @@ const months = {
     11: "Dec",
 }
 
-function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, endDate, setEndDate, selectedStock, setSelectedStock, rerenderTrigger }) {
-    var [selectedStockIndex,setSelectedStockIndex] = useState(0)
+function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, endDate, setEndDate, selectedStock, setSelectedStock, rerenderTrigger, selectedStockIndex, setSelectedStockIndex }) {
+    //var [selectedStockIndex,setSelectedStockIndex] = useState(0)
     const svgRef = useRef();
     useEffect(() => {
         if (allData !== undefined && allData[0] !== undefined) {

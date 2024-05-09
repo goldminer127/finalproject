@@ -3,7 +3,7 @@ import './ScatterPlot.css'
 import { useEffect, useRef } from "react";
 import VarDropdownMenu from '../VarDropdownMenu';
 
-const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTicks, attributes, attributeState, selectionHandler, rerenderTrigger }) => {
+const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTicks, attributes, attributeState, selectionHandler, rerenderTrigger, selectedStockIndex, setSelectedStockIndex, colorMapping }) => {
     const svgRef = useRef();
     const margin = {top:10,bottom:50,right:1,left:60}
 
@@ -59,7 +59,7 @@ const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 .attr('cx', entry => x(entry[0]))
                 .attr('cy', entry => y(entry[1]))
                 .attr('r', 2)
-                .attr('fill', 'white');
+                .attr('fill', colorMapping[selectedStockIndex]);
         }
     }, [data]);
 

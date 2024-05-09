@@ -77,6 +77,7 @@ function App() {
   const [startDate, setStartDate] = useState('2014-01');
   const [endDate, setEndDate] = useState('2023-12');
   const [selectedStock, setSelectedStock] = useState("GOOGL")
+  var [selectedStockIndex,setSelectedStockIndex] = useState(0)
   //Add new 0 to the list for every fetch call
   let fetchCalls = useRef([0, 0])
   useEffect(() => {
@@ -172,14 +173,14 @@ function App() {
       <div className="top-row">
         {/* Line plot */}
         <div id="linePlot">
-          <LinePlot colorMapping={colorMapping} vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedStock={selectedStock} setSelectedStock={setSelectedStock} rerenderTrigger={triggerRerender} />
+          <LinePlot colorMapping={colorMapping} vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedStock={selectedStock} setSelectedStock={setSelectedStock} rerenderTrigger={triggerRerender} selectedStockIndex={selectedStockIndex} setSelectedStockIndex={setSelectedStockIndex}/>
         </div>
         {/* Candle plot */}
         <div className="box">
           <CandleStick width={window.innerWidth * .410} height={window.innerHeight * .40} data={candleStickPlotData} xAxisLabel={"Time"} yAxisLabel={"Prices"} xTicks={10} yTicks={10} attributeState={selectedAttributes} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} startDate={startDate} endDate={endDate} selectedStock={selectedStock}/>
         </div>
         <div id="scatterPlotBox">
-          <ScatterPlot width={window.innerWidth * .17} height={window.innerHeight * .32} data={scatterPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} attributes={Object.keys(attribute)} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} />
+          <ScatterPlot width={window.innerWidth * .17} height={window.innerHeight * .32} data={scatterPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} attributes={Object.keys(attribute)} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} selectedStockIndex={selectedStockIndex} setSelectedStockIndex={setSelectedStockIndex} colorMapping={colorMapping}/>
         </div>
       </div>
       <div className="bottom-row">
