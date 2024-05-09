@@ -4,6 +4,7 @@ import AttributeMDS from './Components/AttributeMDS/AttributeMDS';
 import Pcp from './Components/PCPcomponent/Pcp';
 import ScatterPlot from './Components/Scatterplot/ScatterPlot';
 import ProfitLineGraph from './Components/ProfitLineGraph/ProfitLineGraph';
+import LinePlot from './Components/LinePlot/LinePlot';
 
 function App() {
   const api_variable_names = {
@@ -53,6 +54,10 @@ const colorMapping = {
   let [variableMDScoordinates,setVariableMDScoordinates] = useState([])
   let [selectedAttributes, setSelectedAttributes] = useState(["Open","Close"])
   let [rerender, setRerender] = useState("")
+  // useState for start and end date inputs
+  const [startDate, setStartDate] = useState('2014-01');
+  const [endDate, setEndDate] = useState('2023-12');
+  const [selectedStock,setSelectedStock] = useState("GOOGL")
   //Add new 0 to the list for every fetch call
   let fetchCalls = useRef([0,0])
   useEffect(() =>{
@@ -121,7 +126,9 @@ const colorMapping = {
       <div className="container">
         <div className="top-row">
           {/* Line plot */}
-          <div className="box">Div 1</div>
+          <div className="box">
+            <LinePlot colorMapping={colorMapping} vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedStock={selectedStock} setSelectedStock = {setSelectedStock}/>
+          </div>
           {/* Candle plot */}
           <div className="box">Div 2</div>
           <div id="scatterPlotBox" className="box">
@@ -131,7 +138,7 @@ const colorMapping = {
         <div className="bottom-row">
           {/* PCP */}
           <div id="compareContainer">
-            <ProfitLineGraph categoryNames={categoryNames.slice(0, 8)} vooData={vooData} allData={allData}/>
+            <ProfitLineGraph vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate}/>
           </div>
           {/* Attribute MDS */}
           <div className="pcpContainer">

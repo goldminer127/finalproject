@@ -24,7 +24,7 @@ const months = {
     
 }
 
-function ProfitLineGraph({categoryNames,vooData, allData}) {
+function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, setEndDate}) {
     var [plgRenderer,setPlgRerenderer] = useState(0)
     let uniqueStrings = new Set();
 
@@ -38,9 +38,7 @@ function ProfitLineGraph({categoryNames,vooData, allData}) {
     const [initialDeposit, setInitialDeposit] = useState(1000);
     let [stockWeightList,setStockWeightList] = useState(['6.29', '22.07', '17.55', '11.64', '15.75', '7.53', '5.38', '5.29', '4.39', '4.11'])
     
-    // useState for start and end dates
-    const [startDate, setStartDate] = useState('2014-01');
-    const [endDate, setEndDate] = useState('2023-12');
+    
     
     const checkInputConditions = () =>{
         if(initialDeposit!=undefined&&initialDeposit>=0&&initialDeposit<=1000000){
@@ -201,7 +199,6 @@ function ProfitLineGraph({categoryNames,vooData, allData}) {
                     }
                     compositeProfitList.push(floatInitialDeposit+sum)
                 }
-                console.log(compositeProfitList)
 
                 const monthlyDates = [];
                 const yearlyDates = [];
@@ -240,7 +237,7 @@ function ProfitLineGraph({categoryNames,vooData, allData}) {
                     
                     const xAxis= axisBottom(xScale)
                     const yAxis= axisLeft(yScale)
-                    if(yDomain[1]>1000)yAxis.tickFormat(d3.format(".0e"));
+                    if(yDomain[1]>10000)yAxis.tickFormat(d3.format(".0e"));
                     
                     //Displaying axes
                     svg.append("g").attr("transform",`translate(0,${height - margin.bottom})`).call(xAxis);
