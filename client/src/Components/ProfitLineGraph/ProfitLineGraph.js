@@ -265,7 +265,7 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                         }
                     })
                     //Displaying the path
-                    svg.append('path').attr('fill','none').attr('stroke','white').attr('stroke-width','1').attr('d',path)
+                    svg.append('path').attr('fill','none').attr('stroke','white').attr('stroke-width','3').attr('d',path)
 
                     //Start coordinates of the path
                     path = 'M'+monthlyScale(monthlyDates[0])+" , "+(yScale(compositeProfitList[0]))+" "
@@ -276,7 +276,7 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                         }
                     })
                     //Displaying the path
-                    svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width','1').attr('d',path)
+                    svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width','3').attr('d',path)
                     path = 'M'+monthlyScale(monthlyDates[monthlyDates.length-1])+" , "+(yScale(compositeProfitList[compositeProfitList.length-1]))+" "
                     path += 'L'+(monthlyScale(monthlyDates[monthlyDates.length-1]))+" , "+(yScale(vooProfitList[vooProfitList.length-1]))+" "
                     svg.append("path")
@@ -286,13 +286,13 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                     .attr("fill", "none")
                     .attr("stroke-dasharray", "5,5"); // Set the dash pattern
                     let difference = Math.max(compositeProfitList[compositeProfitList.length-1],vooProfitList[vooProfitList.length-1])-Math.min(compositeProfitList[compositeProfitList.length-1],vooProfitList[vooProfitList.length-1])
-                    svg.append('text').attr('fill','white').attr('x',(monthlyScale(monthlyDates[monthlyDates.length-1])-45)).attr('y',(yScale(vooProfitList[vooProfitList.length-1])+yScale(compositeProfitList[compositeProfitList.length-1]))/2).style('font-size','10px').text("$"+difference.toFixed(2))
+                    svg.append('text').attr('fill','white').attr('x',(monthlyScale(monthlyDates[monthlyDates.length-1])-50)).attr('y',(yScale(vooProfitList[vooProfitList.length-1])+yScale(compositeProfitList[compositeProfitList.length-1]))/2).style('font-size','10px').text("$"+parseFloat(difference.toFixed(2)).toLocaleString())
                     //Legend
                     path = 'M'+(width-margin.right-100)+" , "+(margin.top)+" L "+(width-margin.right-50)+" , "+(margin.top)
-                    svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width',"1").attr('d',path)
+                    svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width',"3").attr('d',path)
                     svg.append('text').attr('fill','white').attr('x',(width-margin.right-40)).attr('y',margin.top).style('font-size','10px').text("Stocks")
                     path = 'M'+(width-margin.right-100)+" , "+(margin.top+20)+" L "+(width-margin.right-50)+" , "+(margin.top+20)
-                    svg.append('path').attr('fill','none').attr('stroke','white').attr('stroke-width',"1").attr('d',path)
+                    svg.append('path').attr('fill','none').attr('stroke','white').attr('stroke-width',"3").attr('d',path)
                     svg.append('text').attr('fill','white').attr('x',(width-margin.right-40)).attr('y',margin.top+22).style('font-size','10px').text("VOO")
                 }
             }
