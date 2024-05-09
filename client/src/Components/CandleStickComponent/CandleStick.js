@@ -60,11 +60,11 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
             const monthlyDates = [];
             const yearlyDates = [];
             // Start from the start date and loop until the end date, incrementing by one month
-            for (let date = new Date(startDateObj); date < endDateObj; date.setFullYear(date.getFullYear() + 1)) {
+            for (let date = new Date(startDateObj); date <= endDateObj; date.setFullYear(date.getFullYear() + 1)) {
                 yearlyDates.push(new Date(date).getFullYear()); // Push each date into the monthlyDates array
             }
             // Start from the start date and loop until the end date, incrementing by one month
-            for (let date = new Date(startDateObj); date < endDateObj; date.setMonth(date.getMonth() + 1)) {
+            for (let date = new Date(startDateObj); date <= endDateObj; date.setMonth(date.getMonth() + 1)) {
                 monthlyDates.push(new Date(date)); // Push each date into the monthlyDates array
             }
             var xDomain = yearlyDates
