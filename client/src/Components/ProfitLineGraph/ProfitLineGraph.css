@@ -1,0 +1,59 @@
+.ProfitLineGraphContainer {
+    display: flex; /* Use Flexbox */
+    height: 50vh; /* Set height to 100% of viewport height */
+  }
+  .ProfitLineGraphLeft {
+      flex: 0 0 20%; /* Take up 20% of the width, don't grow or shrink */
+      /*background-color: #ccc; /* Just for demonstration */
+      padding: 0px;
+      padding-left: 10px;
+      padding-top: 5px;
+      padding-right: 5px;
+      border: 1px solid white;
+      /* overflow-y: scroll;
+      overflow-x: hidden; */
+    }
+    .ProfitLineGraphTextOrLabel{
+      font-size: 10px;
+    }
+    .ProfitLineGraphinput{
+      height: 10px;
+    }
+  
+  .ProfitLineGraphMenu-title {
+    font-weight: bold;
+    /* margin-bottom: 10px; */
+  }
+  
+  .ProfitLineGraphInput-group {
+    margin-bottom: 5px;
+  }
+  
+  .ProfitLineGraphInput-group label {
+    display: block;
+  }
+ 
+  
+  #initial-deposit{
+    width: 65px;
+  }
+  #stock-value{
+    width: 20px;
+  }
+  
+  .ProfitLineGraphStock-inputs, .ProfitLineGraphInputInitialDepositContainer, .ProfitLineGraphInputDateInput {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; Align items vertically */
+  }
+  #start-date,#end-date{
+    width: 110px;
+    height: 15px;
+    font-size: 11px;
+  }
+  
+  .ProfitLineGraphRight {
+    flex: 1; /* Take up remaining space */
+    /*background-color: #ddd; /* Just for demonstration */
+  }
+  
