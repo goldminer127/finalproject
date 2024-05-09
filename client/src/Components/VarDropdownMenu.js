@@ -16,7 +16,7 @@ const VarDropdownMenu = ({variables, displayText, onChange, axisControl, selecte
 
     const handleChange = (event) => {
         changeAttr(event.target.value);
-        rerenderTrigger("scatterPlot")
+        rerenderTrigger("selectedAttributes")
         if(axisControl === "x") {
             onChange([event.target.value, selectedAttr[1]]);
         }

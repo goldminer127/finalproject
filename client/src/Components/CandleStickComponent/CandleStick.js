@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import './ScatterPlot.css'
 import { useEffect, useRef } from "react";
 
 const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTicks}) => {
@@ -14,7 +13,7 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 .style('overflow', 'visible');
 
             svg.selectAll('*').remove();
-
+            
             const x = d3.scaleBand()
                 .domain(data.map(entry => entry[0]))
                 .range([0, width]);
@@ -46,39 +45,31 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 .attr('y', -10)
                 .attr('fill', 'white')
                 .text('Candle Stick Plot');
-
+            
             // Show the main vertical line
-            svg
-                .append("line")
+            svg.selectAll("vertLines")
                 .data(data)
+                .enter()
+                .append("line")
                 .attr("x1", entry => x(entry[0]))
                 .attr("x2", entry => x(entry[0]))
                 .attr("y1", entry => y(entry[1][0]))
                 .attr("y2", entry => y(entry[1][1]))
                 .attr("stroke", "white")
-
+                .style("width", 100)
             // Show the box
-            svg
-                .append("rect")
-                .data(data)
-                .attr("x", entry => x(entry[0]) - 10/2)
-                .attr("y", entry => x(entry[1][3]))
-                .attr("height", entry => Math.abs(y(entry[1][2]) - y(entry[1][3])))
-                .attr("width", 10)
-                .attr("stroke", "white")
-                .style("fill", "#69b3a2")
-
-            // show median, min and max horizontal lines
-            svg
-                .selectAll("toto")
+            svg.selectAll("boxes")
                 .data(data)
                 .enter()
-                .append("line")
-                .attr("y1", entry => y(entry[1][0]))
-                .attr("y2", entry => y(entry[1][1]))
+                .append("rect")
+                .attr("x", entry => x(entry[0]) - 4/2)
+                .attr("y", entry => y(Math.max(entry[1][2], entry[1][3])))
+                .attr("height", entry => y(Math.min(entry[1][2], entry[1][3])) - y(Math.max(entry[1][2], entry[1][3])))
+                .attr("width", 4)
                 .attr("stroke", "white")
+                .style("fill", entry => (entry[1][2] < entry[1][3]) ? "red" : "green")
         }
-    }, [data]);
+    });
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '30px' }}>

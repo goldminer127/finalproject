@@ -5,14 +5,15 @@ import Pcp from './Components/PCPcomponent/Pcp';
 import ScatterPlot from './Components/Scatterplot/ScatterPlot';
 import ProfitLineGraph from './Components/ProfitLineGraph/ProfitLineGraph';
 import LinePlot from './Components/LinePlot/LinePlot';
+import CandleStick from './Components/CandleStickComponent/CandleStick';
 
 function App() {
   const api_variable_names = {
     "data": "data",
     "vooData": "vd",
-    "numericalData":"nd",
-    "rawData":"rd",
-    "categoryNames":'cn',
+    "numericalData": "nd",
+    "rawData": "rd",
+    "categoryNames": 'cn',
     "kIndex": "ki",
     "elbowindex": "ei",
     "listOfMSE": "mse",
@@ -37,52 +38,48 @@ function App() {
     "Revenue": 15,
     "P/E Ratio": 16,
   }
-const colorMapping = {
-  0: "red",
-  1: "orange",
-  2: "yellow",
-  3: "green",
-  4: "blue",
-  5: "indigo",
-  6: "lavender",
-  7: "cyan",
-  8: "pink",
-  9: "lime",
-  10: "magenta",
-  11: "brown",
-  12: "white",
-  13: "olive",
-  14: "peach",
-  15: "maroon",
-  16: "violet",
-  17: "turquoise",
-  18: "teal",
-  19: "salmon"
-};
+  const colorMapping = {
+    0: "red",
+    1: "orange",
+    2: "yellow",
+    3: "green",
+    4: "blue",
+    5: "indigo",
+    6: "lavender",
+    7: "cyan",
+    8: "pink",
+    9: "lime",
+    10: "magenta",
+    11: "brown",
+    12: "white",
+    13: "olive",
+    14: "peach",
+    15: "maroon",
+    16: "violet",
+    17: "turquoise",
+    18: "teal",
+    19: "salmon"
+  };
 
   let [scatterPlotData, setScatterPlotData] = useState([])
-  let [pcpAxisOrder,setPcpAxisOrder] = useState([])
-  let [categoryNames,setCategoryNames] = useState([])
-  let [allData,setAllData] = useState([])
+  let [candleStickPlotData, setCandleStickPlotData] = useState([])
+  let [pcpAxisOrder, setPcpAxisOrder] = useState([])
+  let [categoryNames, setCategoryNames] = useState([])
+  let [allData, setAllData] = useState([])
   let [vooData, setVooData] = useState([])
-  let [kIndex,setKIndex] = useState(0)
-  let [elbowIndex,setElbowIndex] = useState(0)
-  let [label,setLabel] = useState([])
-  let [variableMDScoordinates,setVariableMDScoordinates] = useState([])
-  let [selectedAttributes, setSelectedAttributes] = useState(["Open","Close"])
-<<<<<<< HEAD
-  let [selectedStock, setSelectedStock] = useState("GOOGL")
+  let [kIndex, setKIndex] = useState(0)
+  let [elbowIndex, setElbowIndex] = useState(0)
+  let [label, setLabel] = useState([])
+  let [variableMDScoordinates, setVariableMDScoordinates] = useState([])
+  let [selectedAttributes, setSelectedAttributes] = useState(["Open", "Close"])
   let [rerender, triggerRerender] = useState("")
-=======
-  let [rerender, setRerender] = useState("")
   // useState for start and end date inputs
   const [startDate, setStartDate] = useState('2014-01');
   const [endDate, setEndDate] = useState('2023-12');
-  const [selectedStock,setSelectedStock] = useState("GOOGL")
->>>>>>> 37667f8ca87aa781d44e83fbbe1aff8787acd935
+  const [selectedStock, setSelectedStock] = useState("GOOGL")
   //Add new 0 to the list for every fetch call
-  let fetchCalls = useRef([0,0])
-  useEffect(() =>{
+  let fetchCalls = useRef([0, 0])
+  useEffect(() => {
     /*
     if ((scatterPlotData.length <= 0 || rerender === "scatterPlot") && fetchCalls.current[0] === 0) {
       fetchCalls.current[0] = 1
@@ -103,14 +100,18 @@ const colorMapping = {
       )
     }
     */
-    if(rerender === "scatterPlot")
-    {
+    if (rerender === "selectedStock" || rerender === "selectedAttributes") {
       triggerRerender("")
       let tempArr = []
-      for(let i = 0; i < allData.length; i++) {
-        tempArr.push([allData[i][attribute[selectedAttributes[0]]], allData[i][attribute[selectedAttributes[1]]]])
+      let tempArrCandle = []
+      for (let i = 0; i < allData.length; i++) {
+        if (allData[i][0] === selectedStock) {
+          tempArr.push([allData[i][attribute[selectedAttributes[0]]], allData[i][attribute[selectedAttributes[1]]]])
+          tempArrCandle.push([allData[i][1], [allData[i][attribute["High"]], allData[i][attribute["Low"]], allData[i][attribute["Open"]], allData[i][attribute["Close"]]]])
+        }
       }
       setScatterPlotData(tempArr)
+      setCandleStickPlotData(tempArrCandle)
     }
     if (fetchCalls.current[1] === 0) {
       fetchCalls.current[1] = 1
@@ -128,64 +129,71 @@ const colorMapping = {
           setElbowIndex(data[api_variable_names["elbowindex"]])
           setLabel(data[api_variable_names["labels"]])
           setVariableMDScoordinates(data[api_variable_names["varMDS"]])
-          if(data[api_variable_names["data"]][0]!=undefined && data[api_variable_names["data"]][0] != undefined){
+          if (data[api_variable_names["data"]][0] != undefined && data[api_variable_names["data"]][0] != undefined) {
             //Initialize array from 0 -> length of allData[0]
-            setPcpAxisOrder(()=>{
+            setPcpAxisOrder(() => {
               let arr = []
               //Going up to length because of extra attribute - break up Date into month and year
-              for(let i = 0; i <= data[api_variable_names["data"]][0].length;i++){
+              for (let i = 0; i <= data[api_variable_names["data"]][0].length; i++) {
                 arr.push(i)
               }
               return arr
             })
 
             let tempCategoryList = []
-            for(let i = 0;i<data[api_variable_names["categoryNames"]].length;i++){
-                if(i!=1){
-                    tempCategoryList.push(data[api_variable_names["categoryNames"]][i])
-                }
-                else{
-                    tempCategoryList.push("Year")
-                    tempCategoryList.push("Month")
-                }
+            for (let i = 0; i < data[api_variable_names["categoryNames"]].length; i++) {
+              if (i != 1) {
+                tempCategoryList.push(data[api_variable_names["categoryNames"]][i])
+              }
+              else {
+                tempCategoryList.push("Year")
+                tempCategoryList.push("Month")
+              }
             }
             setCategoryNames(tempCategoryList)
           }
           let tempArr = []
-          for(let i = 0; i < rawData.length; i++) {
-            tempArr.push([rawData[i][attribute[selectedAttributes[0]]], rawData[i][attribute[selectedAttributes[1]]]])
+          let tempArrCandle = []
+          for (let i = 0; i < rawData.length; i++) {
+            if (rawData[i][0] === selectedStock) {
+              tempArr.push([rawData[i][attribute[selectedAttributes[0]]], rawData[i][attribute[selectedAttributes[1]]]])
+              tempArrCandle.push([rawData[i][1], [rawData[i][attribute["High"]], rawData[i][attribute["Low"]], rawData[i][attribute["Open"]], rawData[i][attribute["Close"]]]])
+            }
           }
           setScatterPlotData(tempArr)
+          setCandleStickPlotData(tempArrCandle)
         },
         // fetchCalls.current[1] = 0
       )
     }
   })
   return (
-      <div className="container">
-        <div className="top-row">
-          {/* Line plot */}
-          <div className="box">
-            <LinePlot colorMapping={colorMapping} vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedStock={selectedStock} setSelectedStock = {setSelectedStock}/>
-          </div>
-          {/* Candle plot */}
-          <div className="box">Div 2</div>
-          <div id="scatterPlotBox" className="box">
-            <ScatterPlot width={window.innerWidth * .24} height={window.innerHeight * .32} data={scatterPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} attributes={Object.keys(attribute)} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender}/>
-          </div>
+    <div className="container">
+      <div className="top-row">
+        {/* Line plot */}
+        <div className="box">
+          <LinePlot colorMapping={colorMapping} vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedStock={selectedStock} setSelectedStock={setSelectedStock} rerenderTrigger={triggerRerender} />
         </div>
-        <div className="bottom-row">
-          {/* PCP */}
-          <div id="compareContainer">
-            <ProfitLineGraph vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate}/>
-          </div>
-          {/* Attribute MDS */}
-          <div className="pcpContainer">
-            <Pcp colorMapping={colorMapping} categoryNames={categoryNames} allData={allData} label={label} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/>
-            {/* <AttributeMDS colorMapping={colorMapping} categoryNames={categoryNames} kIndex={kIndex} elbowIndex={elbowIndex} label={label} variableMDScoordinates={variableMDScoordinates} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/> */}
-          </div>
+        {/* Candle plot */}
+        <div className="box">
+          <CandleStick width={window.innerWidth * .28} height={window.innerHeight * .42} data={candleStickPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} />
+        </div>
+        <div id="scatterPlotBox" className="box">
+          <ScatterPlot width={window.innerWidth * .24} height={window.innerHeight * .32} data={scatterPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} attributes={Object.keys(attribute)} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} />
         </div>
       </div>
+      <div className="bottom-row">
+        {/* PCP */}
+        <div id="compareContainer">
+          <ProfitLineGraph vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
+        </div>
+        {/* Attribute MDS */}
+        <div className="pcpContainer">
+          <Pcp colorMapping={colorMapping} categoryNames={categoryNames} allData={allData} label={label} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder} />
+          {/* <AttributeMDS colorMapping={colorMapping} categoryNames={categoryNames} kIndex={kIndex} elbowIndex={elbowIndex} label={label} variableMDScoordinates={variableMDScoordinates} pcpAxisOrder={pcpAxisOrder} setPcpAxisOrder={setPcpAxisOrder}/> */}
+        </div>
+      </div>
+    </div>
   );
 }
 
