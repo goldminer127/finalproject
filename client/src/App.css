@@ -52,3 +52,7 @@ body{
   border: 1px solid white;
 }
   
+#scatterPlotBox {
+  width: 23%;
+  border: 1px solid white;
+}

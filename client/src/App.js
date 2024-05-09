@@ -171,15 +171,15 @@ function App() {
     <div className="container">
       <div className="top-row">
         {/* Line plot */}
-        <div className="box">
+        <div id="linePLot">
           <LinePlot colorMapping={colorMapping} vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedStock={selectedStock} setSelectedStock={setSelectedStock} rerenderTrigger={triggerRerender} />
         </div>
         {/* Candle plot */}
         <div className="box">
-          <CandleStick width={window.innerWidth * .28} height={window.innerHeight * .42} data={candleStickPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} startDate={startDate} endDate={endDate}/>
+          <CandleStick width={window.innerWidth * .415} height={window.innerHeight * .42} data={candleStickPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} startDate={startDate} endDate={endDate}/>
         </div>
-        <div id="scatterPlotBox" className="box">
-          <ScatterPlot width={window.innerWidth * .24} height={window.innerHeight * .32} data={scatterPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} attributes={Object.keys(attribute)} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} />
+        <div id="scatterPlotBox">
+          <ScatterPlot width={window.innerWidth * .17} height={window.innerHeight * .32} data={scatterPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} attributes={Object.keys(attribute)} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} />
         </div>
       </div>
       <div className="bottom-row">

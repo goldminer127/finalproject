@@ -145,7 +145,9 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
             svg.append("text").attr("class", "axis-label").attr("transform", "rotate(-90)").attr("x", (-height / 2) - (margin.top)).attr("y", margin.left / 3).style("fill", "white").text("Closing Price")
             //Displaying the title
             svg.append("text").attr("class", "chart-title").attr("text-anchor", "middle").attr("x", width / 2).attr("y", margin.top).style("fill", "white").text("Line Plot")
-
+            //Display selection instructions
+            svg.append("text").attr("class", "chart-title").attr("text-anchor", "middle").attr("x", width / 3).attr("y", margin.top + 30).style("fill", "white").text("Click on the stock line in the")
+            svg.append("text").attr("class", "chart-title").attr("text-anchor", "middle").attr("x", width / 3).attr("y", margin.top + 50).style("fill", "white").text("legend to focus on a stock")
             const monthlyDomain = monthlyDates
             const monthlyRange = [margin.left, width - margin.right]
             const monthlyScale = scaleBand(monthlyDomain, monthlyRange).padding(.1)

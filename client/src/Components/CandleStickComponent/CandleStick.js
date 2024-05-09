@@ -154,7 +154,7 @@ const CandleStick = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 .attr("height", y(Math.min(arr[2], arr[3])) - y(Math.max(arr[2], arr[3])))
                 .attr("width", 4)
                 .attr("stroke", "white")
-                .style("fill", (arr[2] < arr[3]) ? "red" : "green")
+                .style("fill", (arr[2] > arr[3]) ? "red" : "green")
             }
             /*
             // Show the box
