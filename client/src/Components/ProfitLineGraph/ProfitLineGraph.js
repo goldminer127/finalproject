@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import ProfitLineGraphMenu from './ProfitLineGraphMenu';
 
 const {csv,select,scaleLinear,map,scaleBand,axisBottom,axisLeft,bin,max,range,format,selectAll,line,bisect} = d3;
-const margin = {top:20,bottom:40,right:1,left:60}
+const margin = {top:30,bottom:50,right:1,left:60}
 const width = window.innerWidth * .6 * .75
-const height = window.innerHeight * .5
+const height = window.innerHeight * .47
 
 const months = {
     0:"Jan",
@@ -74,7 +74,8 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                   // Proceed with the desired action
                   let sum = 0
                     for(let i = 0;i<stockWeightList.length;i++){
-                        sum += parseFloat(stockWeightList[i])
+                        if(stockWeightList[i]!=undefined&&stockWeightList[i]!=null&&stockWeightList[i]!=NaN&&stockWeightList[i]!='')sum += parseFloat(stockWeightList[i])
+                        // sum += parseFloat(stockWeightList[i])
                     }
                     if(sum==100){
                         // alert("good")

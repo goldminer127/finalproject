@@ -5,6 +5,7 @@ import VarDropdownMenu from '../VarDropdownMenu';
 
 const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTicks, attributes, attributeState, selectionHandler, rerenderTrigger }) => {
     const svgRef = useRef();
+    const margin = {top:10,bottom:50,right:1,left:60}
 
     useEffect(() => {
         if (Array.isArray(data)) {
@@ -43,7 +44,7 @@ const ScatterPlot = ({ data, width, height, xAxisLabel, yAxisLabel, xTicks, yTic
                 .text(yAxisLabel);
             svg.append('text')
                 .attr('x', width/2 - 20)
-                .attr('y', -10)
+                .attr('y', margin.top)
                 .attr('fill', 'white')
                 .text('Scatter Plot');
 

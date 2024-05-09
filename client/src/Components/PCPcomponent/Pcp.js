@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 const {csv,select,scaleLinear,map,scaleBand,axisBottom,axisLeft,bin,max,range,format,selectAll,line,bisect} = d3;
 const margin = {top:20,bottom:20,right:10,left:40}
-const width = window.innerWidth * .4
-const height = window.innerHeight * .5
+const width = window.innerWidth * .39
+const height = window.innerHeight * .47
 //Holds thresholds attribute values have to be between. For categorical data, the threshold is the index of the category options
 var attributeTresholds = []
 //Holds coordinates for upper slider
