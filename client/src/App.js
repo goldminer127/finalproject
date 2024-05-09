@@ -176,7 +176,7 @@ function App() {
         </div>
         {/* Candle plot */}
         <div className="box">
-          <CandleStick width={window.innerWidth * .415} height={window.innerHeight * .42} data={candleStickPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} startDate={startDate} endDate={endDate}/>
+          <CandleStick width={window.innerWidth * .410} height={window.innerHeight * .40} data={candleStickPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} startDate={startDate} endDate={endDate}/>
         </div>
         <div id="scatterPlotBox">
           <ScatterPlot width={window.innerWidth * .17} height={window.innerHeight * .32} data={scatterPlotData} xAxisLabel={selectedAttributes[0]} yAxisLabel={selectedAttributes[1]} xTicks={10} yTicks={10} attributeState={selectedAttributes} attributes={Object.keys(attribute)} selectionHandler={setSelectedAttributes} rerenderTrigger={triggerRerender} />
