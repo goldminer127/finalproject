@@ -171,7 +171,7 @@ function App() {
     <div className="container">
       <div className="top-row">
         {/* Line plot */}
-        <div id="linePLot">
+        <div id="linePlot">
           <LinePlot colorMapping={colorMapping} vooData={vooData} allData={allData} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} selectedStock={selectedStock} setSelectedStock={setSelectedStock} rerenderTrigger={triggerRerender} />
         </div>
         {/* Candle plot */}

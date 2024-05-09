@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const { csv, select, scaleLinear, map, scaleBand, axisBottom, axisLeft, bin, max, range, format, selectAll, line, bisect } = d3;
 const margin = { top: 30, bottom: 35, right: 10, left: 60 }
 const width = window.innerWidth * .33
-const height = window.innerHeight * .50
+const height = window.innerHeight * .49
 
 const months = {
     0: "Jan",

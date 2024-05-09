@@ -35,7 +35,9 @@ body{
     /* background-color: lightcoral; */
     border: 1px solid white;
   }
-
+#linePlot{
+  border: 1px solid white;
+}
 
 #pcpContainer,#compareContainer {
   flex-grow: 1; /* Make divs grow to fill available space */
