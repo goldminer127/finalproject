@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import ProfitLineGraphMenu from './ProfitLineGraphMenu';
 
 const {csv,select,scaleLinear,map,scaleBand,axisBottom,axisLeft,bin,max,range,format,selectAll,line,bisect} = d3;
-const margin = {top:20,bottom:40,right:1,left:60}
+const margin = {top:30,bottom:50,right:1,left:60}
 const width = window.innerWidth * .6 * .75
-const height = window.innerHeight * .5
+const height = window.innerHeight * .47
 
 const months = {
     0:"Jan",
@@ -74,7 +74,8 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                   // Proceed with the desired action
                   let sum = 0
                     for(let i = 0;i<stockWeightList.length;i++){
-                        sum += parseFloat(stockWeightList[i])
+                        if(stockWeightList[i]!=undefined&&stockWeightList[i]!=null&&stockWeightList[i]!=NaN&&stockWeightList[i]!='')sum += parseFloat(stockWeightList[i])
+                        // sum += parseFloat(stockWeightList[i])
                     }
                     if(sum==100){
                         // alert("good")
@@ -143,16 +144,14 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                 for(let i = 0;i<vooData.length;i++){
                     let date = new Date(vooData[i][1])
                     //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
-                    if(date.getFullYear()>startDateObj.getFullYear()&&date.getFullYear()<endDateObj.getFullYear()||
-                    (date.getFullYear()==startDateObj.getFullYear()&&date.getMonth()>startDateObj.getMonth())||
-                    (date.getFullYear()==endDateObj.getFullYear()&&date.getMonth()<endDateObj.getMonth())){
+                    if(date>=startDateObj&&date<=endDateObj){
                         vooClosingValues.push(vooData[i][5])
                     }
                 }
                 vooClosingValues = vooClosingValues.reverse()
 
                 let vooProfitList = []
-                vooProfitList.push(floatInitialDeposit)
+                //vooProfitList.push(floatInitialDeposit)
                 for(let i = 0;i<vooClosingValues.length;i++){
                     let profit = floatInitialDeposit+((vooClosingValues[i]-vooClosingValues[0])*(floatInitialDeposit/vooClosingValues[0]))
                     vooProfitList.push(profit)
@@ -162,10 +161,9 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                 let tempList = []
                 for(let i = 0;i<allData.length;i++){
                     let date = new Date(allData[i][1])
-                    //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
-                    if(date.getFullYear()>startDateObj.getFullYear()&&date.getFullYear()<endDateObj.getFullYear()||
-                    (date.getFullYear()==startDateObj.getFullYear()&&date.getMonth()>=startDateObj.getMonth())||
-                    (date.getFullYear()==endDateObj.getFullYear()&&date.getMonth()<=endDateObj.getMonth())){
+                    
+                    if(date>=startDateObj&&date<=endDateObj){
+                    
                         //For every months * years, it moves on to the next ticker
                         if(i>0&&i%(12*10)==0){
                             compositeClosingValues.push(tempList)
@@ -203,11 +201,11 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                 const monthlyDates = [];
                 const yearlyDates = [];
                 // Start from the start date and loop until the end date, incrementing by one month
-                for (let date = new Date(startDateObj); date < endDateObj; date.setFullYear(date.getFullYear() + 1)) {
+                for (let date = new Date(startDateObj); date <= endDateObj; date.setFullYear(date.getFullYear() + 1)) {
                     yearlyDates.push(new Date(date).getFullYear()); // Push each date into the monthlyDates array
                 }
                 // Start from the start date and loop until the end date, incrementing by one month
-                for (let date = new Date(startDateObj); date < endDateObj; date.setMonth(date.getMonth() + 1)) {
+                for (let date = new Date(startDateObj); date <= endDateObj; date.setMonth(date.getMonth() + 1)) {
                     monthlyDates.push(new Date(date)); // Push each date into the monthlyDates array
                 }
                     
@@ -246,7 +244,7 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                     //Displaying x-label
                     svg.append("text").attr("class","axis-label").attr("x",width/2).attr("y",height-5).style("fill","white").text("Time")
                     //Displaying y-label
-                    svg.append("text").attr("class","axis-label").attr("transform", "rotate(-90)").attr("x",(-height/2)-(margin.top)).attr("y",margin.left/3).style("fill","white").text("Profit")
+                    svg.append("text").attr("class","axis-label").attr("transform", "rotate(-90)").attr("x",(-height/2)-(margin.top)).attr("y",margin.left/3).style("fill","white").text("Profit ($)")
                     //Displaying the title
                     svg.append("text").attr("class","chart-title").attr("text-anchor","middle").attr("x", width/2).attr("y",margin.top).style("fill","white").text("Stock Visualizer")
 
@@ -264,7 +262,7 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                         }
                     })
                     //Displaying the path
-                    svg.append('path').attr('fill','none').attr('stroke','white').attr('stroke-width','1').attr('d',path)
+                    svg.append('path').attr('fill','none').attr('stroke','white').attr('stroke-width','3').attr('d',path)
 
                     //Start coordinates of the path
                     path = 'M'+monthlyScale(monthlyDates[0])+" , "+(yScale(compositeProfitList[0]))+" "
@@ -275,13 +273,23 @@ function ProfitLineGraph({vooData, allData,startDate, setStartDate, endDate, set
                         }
                     })
                     //Displaying the path
-                    svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width','1').attr('d',path)
+                    svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width','3').attr('d',path)
+                    path = 'M'+monthlyScale(monthlyDates[monthlyDates.length-1])+" , "+(yScale(compositeProfitList[compositeProfitList.length-1]))+" "
+                    path += 'L'+(monthlyScale(monthlyDates[monthlyDates.length-1]))+" , "+(yScale(vooProfitList[vooProfitList.length-1]))+" "
+                    svg.append("path")
+                    .attr("d", path)
+                    .attr("stroke", "white")
+                    .attr("stroke-width", 2)
+                    .attr("fill", "none")
+                    .attr("stroke-dasharray", "5,5"); // Set the dash pattern
+                    let difference = Math.max(compositeProfitList[compositeProfitList.length-1],vooProfitList[vooProfitList.length-1])-Math.min(compositeProfitList[compositeProfitList.length-1],vooProfitList[vooProfitList.length-1])
+                    svg.append('text').attr('fill','white').attr('x',(monthlyScale(monthlyDates[monthlyDates.length-1])-50)).attr('y',(yScale(vooProfitList[vooProfitList.length-1])+yScale(compositeProfitList[compositeProfitList.length-1]))/2).style('font-size','10px').text("$"+parseFloat(difference.toFixed(2)).toLocaleString())
                     //Legend
                     path = 'M'+(width-margin.right-100)+" , "+(margin.top)+" L "+(width-margin.right-50)+" , "+(margin.top)
-                    svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width',"1").attr('d',path)
+                    svg.append('path').attr('fill','none').attr('stroke','red').attr('stroke-width',"3").attr('d',path)
                     svg.append('text').attr('fill','white').attr('x',(width-margin.right-40)).attr('y',margin.top).style('font-size','10px').text("Stocks")
                     path = 'M'+(width-margin.right-100)+" , "+(margin.top+20)+" L "+(width-margin.right-50)+" , "+(margin.top+20)
-                    svg.append('path').attr('fill','none').attr('stroke','white').attr('stroke-width',"1").attr('d',path)
+                    svg.append('path').attr('fill','none').attr('stroke','white').attr('stroke-width',"3").attr('d',path)
                     svg.append('text').attr('fill','white').attr('x',(width-margin.right-40)).attr('y',margin.top+22).style('font-size','10px').text("VOO")
                 }
             }

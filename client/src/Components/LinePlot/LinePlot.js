@@ -3,9 +3,9 @@ import * as d3 from 'd3';
 import { useEffect, useRef, useState } from "react";
 
 const { csv, select, scaleLinear, map, scaleBand, axisBottom, axisLeft, bin, max, range, format, selectAll, line, bisect } = d3;
-const margin = { top: 20, bottom: 40, right: 1, left: 60 }
+const margin = { top: 30, bottom: 35, right: 10, left: 60 }
 const width = window.innerWidth * .33
-const height = window.innerHeight * .5
+const height = window.innerHeight * .49
 
 const months = {
     0: "Jan",
@@ -22,9 +22,8 @@ const months = {
     11: "Dec",
 }
 
-var selectedStockIndex = -1;
-
-function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, endDate, setEndDate, selectedStock, setSelectedStock, rerenderTrigger }) {
+function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, endDate, setEndDate, selectedStock, setSelectedStock, rerenderTrigger, selectedStockIndex, setSelectedStockIndex }) {
+    //var [selectedStockIndex,setSelectedStockIndex] = useState(0)
     const svgRef = useRef();
     useEffect(() => {
         if (allData !== undefined && allData[0] !== undefined) {
@@ -59,9 +58,7 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
             for (let i = 0; i < vooData.length; i++) {
                 let date = new Date(vooData[i][1])
                 //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
-                if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
-                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() > startDateObj.getMonth()) ||
-                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() < endDateObj.getMonth())) {
+                if(date>=startDateObj&&date<=endDateObj){
                     vooClosingValues.push(vooData[i][5])
                 }
             }
@@ -73,9 +70,7 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
             for (let i = 0; i < allData.length; i++) {
                 let date = new Date(allData[i][1])
                 //date.getMonth()>startDateObj.getMonth()&&date.getMonth()<endDateObj.getMonth()
-                if (date.getFullYear() > startDateObj.getFullYear() && date.getFullYear() < endDateObj.getFullYear() ||
-                    (date.getFullYear() == startDateObj.getFullYear() && date.getMonth() >= startDateObj.getMonth()) ||
-                    (date.getFullYear() == endDateObj.getFullYear() && date.getMonth() <= endDateObj.getMonth())) {
+                if(date>=startDateObj&&date<=endDateObj){
                     //For every months * years, it moves on to the next ticker
                     if (i > 0 && i % (12 * 10) == 0) {
                         compositeClosingValues.push(tempList)
@@ -96,11 +91,11 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
             const monthlyDates = [];
             const yearlyDates = [];
             // Start from the start date and loop until the end date, incrementing by one month
-            for (let date = new Date(startDateObj); date < endDateObj; date.setFullYear(date.getFullYear() + 1)) {
+            for (let date = new Date(startDateObj); date <= endDateObj; date.setFullYear(date.getFullYear() + 1)) {
                 yearlyDates.push(new Date(date).getFullYear()); // Push each date into the monthlyDates array
             }
             // Start from the start date and loop until the end date, incrementing by one month
-            for (let date = new Date(startDateObj); date < endDateObj; date.setMonth(date.getMonth() + 1)) {
+            for (let date = new Date(startDateObj); date <= endDateObj; date.setMonth(date.getMonth() + 1)) {
                 monthlyDates.push(new Date(date)); // Push each date into the monthlyDates array
             }
 
@@ -141,12 +136,14 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
             svg.append("g").attr("transform", `translate(${margin.left},0)`).call(yAxis)
 
             //Displaying x-label
-            svg.append("text").attr("class", "axis-label").attr("x", width / 2).attr("y", height - 5).style("fill", "white").text("Time")
+            svg.append("text").attr("class", "axis-label").attr("x", width / 2).attr("y", height).style("fill", "white").text("Time")
             //Displaying y-label
             svg.append("text").attr("class", "axis-label").attr("transform", "rotate(-90)").attr("x", (-height / 2) - (margin.top)).attr("y", margin.left / 3).style("fill", "white").text("Closing Price")
             //Displaying the title
             svg.append("text").attr("class", "chart-title").attr("text-anchor", "middle").attr("x", width / 2).attr("y", margin.top).style("fill", "white").text("Line Plot")
-
+            //Display selection instructions
+            svg.append("text").attr("class", "chart-title").attr("text-anchor", "middle").attr("x", width / 3).attr("y", margin.top + 30).style("fill", "white").text("Click on the stock line in the")
+            svg.append("text").attr("class", "chart-title").attr("text-anchor", "middle").attr("x", width / 3).attr("y", margin.top + 50).style("fill", "white").text("legend to focus on a stock")
             const monthlyDomain = monthlyDates
             const monthlyRange = [margin.left, width - margin.right]
             const monthlyScale = scaleBand(monthlyDomain, monthlyRange).padding(.1)
@@ -168,24 +165,30 @@ function LinePlot({ colorMapping, vooData, allData, startDate, setStartDate, end
                 for (let j = 1; j < compositeClosingValues[0].length; j++) {
                     path += 'L' + (monthlyScale(monthlyDates[j])) + " , " + (yScale(compositeClosingValues[i][j])) + " "
                 }
-                svg.append('path').attr('fill', 'none').attr("class", "linePlotLine").attr('id', "linePlotLine" + i).attr('stroke', colorMapping[i]).attr('stroke-width', '2').style('opacity', .7).attr('d', path).on("click", function () {
-                    // Code to be executed when 'myElement' is clicked
-                    svg.selectAll('.linePlotLine').style('opacity', .5)
-                    svg.select("#linePlotLine" + i).style('opacity', 1)
-                    selectedStockIndex = i
-                    setSelectedStock(listOfTickers[i])
-                    rerenderTrigger("selectedStock")
-                })
+                svg.append('path').attr('fill', 'none').attr("class", "linePlotLine").attr('id', "linePlotLine" + i).attr('stroke', colorMapping[i]).attr('stroke-width', '2').style('opacity', .7).attr('d', path)
             }
             //Legend
             path = 'M' + (width - margin.right - 150) + " , " + (margin.top) + " L " + (width - margin.right - 100) + " , " + (margin.top)
-            svg.append('path').attr('fill', 'none').attr('stroke', 'white').attr('stroke-width', "3").attr('d', path)
+            svg.append('path').attr('fill', 'none').attr('stroke', 'white').attr('stroke-width', "4").attr('d', path)
             svg.append('text').attr('fill', 'white').attr('x', (width - margin.right - 90)).attr('y', margin.top).style('font-size', '8px').text("VOO")
-            for (let i = 1; i <= compositeClosingValues.length; i++) {
-                path = 'M' + (width - margin.right - 150) + " , " + (margin.top + (i * 10)) + " L " + (width - margin.right - 100) + " , " + (margin.top + (i * 10))
-                svg.append('path').attr('fill', 'none').attr('stroke', colorMapping[i - 1]).attr('stroke-width', "1").attr('d', path)
-                svg.append('text').attr('fill', 'white').attr('x', (width - margin.right - 90)).attr('y', margin.top + (i * 10)).style('font-size', '8px').text(listOfTickers[i - 1])
-
+            for (let i = 0; i < compositeClosingValues.length; i++) {
+                path = 'M' + (width - margin.right - 150) + " , " + (margin.top + ((i * 10)+10)) + " L " + (width - margin.right - 100) + " , " + (margin.top + ((i * 10)+10))
+                svg.append('path').attr('fill', 'none').attr("class","legendStockLines").attr('id','legendStockLines'+i).attr('stroke', colorMapping[i]).attr('stroke-width', "3").attr('d', path).style('opacity', .7).on("click", function () {
+                    // Code to be executed when 'myElement' is clicked
+                    svg.selectAll('.legendStockLines').style('opacity', .5)
+                    svg.selectAll('.linePlotLine').style('opacity', .5)
+                    svg.select("#legendStockLines" + i).style('opacity', 1)
+                    svg.select("#linePlotLine" + i).style('opacity', 1)
+                    // selectedStockIndex = i
+                    setSelectedStockIndex(i)
+                    setSelectedStock(listOfTickers[i])
+                    rerenderTrigger("selectedStock")
+                })
+                svg.append('text').attr('fill', 'white').attr('x', (width - margin.right - 90)).attr('y', margin.top + ((i * 10)+10)).style('font-size', '8px').text(listOfTickers[i])
+                svg.selectAll('.legendStockLines').style('opacity', .5)
+                svg.selectAll('.linePlotLine').style('opacity', .5)
+                svg.select("#legendStockLines" + selectedStockIndex).style('opacity', 1)
+                svg.select("#linePlotLine" + selectedStockIndex).style('opacity', 1)
             }
         }
     })

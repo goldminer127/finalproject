@@ -1,6 +1,7 @@
 body{
     background-color: black;
     color: white;
+    overflow-y: hidden;
 }
 
 .container {
@@ -8,7 +9,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 98vh;
   }
   
   .top-row, .bottom-row {
@@ -34,13 +35,15 @@ body{
     /* background-color: lightcoral; */
     border: 1px solid white;
   }
-
+#linePlot{
+  border: 1px solid white;
+}
 
 #pcpContainer,#compareContainer {
   flex-grow: 1; /* Make divs grow to fill available space */
-  height: 50vh; /* Expand divs to take up available height */
+  height: 48vh; /* Expand divs to take up available height */
 }
-#pcpContainer{
+.pcpContainer{
   width: 40%; /* Each div takes up one-third of the width */
     /* background-color: lightblue; */
     border: 1px solid white;
@@ -51,3 +54,7 @@ body{
   border: 1px solid white;
 }
   
+#scatterPlotBox {
+  width: 23%;
+  border: 1px solid white;
+}

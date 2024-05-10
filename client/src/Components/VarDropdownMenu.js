@@ -26,9 +26,9 @@ const VarDropdownMenu = ({variables, displayText, onChange, axisControl, selecte
     };
 
     return(
-        <FormControl>
+        <FormControl sx={{width: '100%'}}>
             <InputLabel id='varMenuLabel'>{displayText}</InputLabel>
-            <Select labelId="varMenuLabel" label={displayText} value={currentAttr} sx={{width: '10rem'}} onChange={handleChange}>
+            <Select labelId="varMenuLabel" label={displayText} value={currentAttr} sx={{width: '100%'}} onChange={handleChange}>
                 <MenuItem value="">
                     <em>None</em>
                 </MenuItem>

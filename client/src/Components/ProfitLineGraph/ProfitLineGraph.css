@@ -1,15 +1,16 @@
 .ProfitLineGraphContainer {
     display: flex; /* Use Flexbox */
-    height: 50vh; /* Set height to 100% of viewport height */
+    height: 49vh; /* Set height to 100% of viewport height */
   }
   .ProfitLineGraphLeft {
       flex: 0 0 20%; /* Take up 20% of the width, don't grow or shrink */
       /*background-color: #ccc; /* Just for demonstration */
       padding: 0px;
       padding-left: 10px;
-      padding-top: 5px;
+      padding-top: 3px;
       padding-right: 5px;
-      border: 1px solid white;
+      border-right: 1px solid white;
+      height: 97%;
       /* overflow-y: scroll;
       overflow-x: hidden; */
     }
@@ -18,15 +19,18 @@
     }
     .ProfitLineGraphinput{
       height: 10px;
+      margin: 0;
     }
   
   .ProfitLineGraphMenu-title {
     font-weight: bold;
+    text-align: center;
+    height: 16px;
     /* margin-bottom: 10px; */
   }
   
   .ProfitLineGraphInput-group {
-    margin-bottom: 5px;
+    margin-top: 5px;
   }
   
   .ProfitLineGraphInput-group label {
@@ -41,6 +45,10 @@
     width: 20px;
   }
   
+.ProfitLineGraphInputInitialDepositContainer{
+  height:10px;
+}
+
   .ProfitLineGraphStock-inputs, .ProfitLineGraphInputInitialDepositContainer, .ProfitLineGraphInputDateInput {
     display: flex;
     justify-content: space-between;
@@ -48,7 +56,7 @@
   }
   #start-date,#end-date{
     width: 110px;
-    height: 15px;
+    height: 11px;
     font-size: 11px;
   }
   
@@ -57,3 +65,33 @@
     /*background-color: #ddd; /* Just for demonstration */
   }
   
+  #ProfitLineGraphMenuPortfolio{
+    margin: 0;
+    padding: 0;
+    border: none;
+    height: 18px;
+  }
+  #ProfitLineGraphMenuPortfolioPar{
+    margin: 0;
+    margin-top: 5px;
+    height: 20px;
+    font-size: 14px;
+  }
+  #ProfitLineGraphMenuGoodSum{
+    color: lime;
+    height: 1px;
+    margin: 0;
+    font-size: 14px;
+  }
+  #ProfitLineGraphMenuBadSum{
+    color: red;
+    height: 10px;
+    margin: 0;
+  }
+  #ProfitLineGraphMenuStockTotal{
+    /* text-align: center; */
+    margin: 0;
+    padding: 0;
+    border: none;
+    height: 20px;
+  }

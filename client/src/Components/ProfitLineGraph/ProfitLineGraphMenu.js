@@ -5,8 +5,16 @@ import { useEffect, useRef, useState } from "react";
 
 
 function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, stockWeightList, setStockWeightList, startDate, setStartDate, endDate, setEndDate, handleSubmitClicked}) {
+    var [sumStockWeights,setSumStockWeights] = useState(100)
     
-    
+    const calculateStockWeightSum=(list)=>{
+        let sum = 0
+        for(let i = 0;i<list.length;i++){
+            if(list[i]!=undefined&&list[i]!=null&&list[i]!=NaN&&list[i]!='')sum += parseFloat(list[i])
+        }
+        setSumStockWeights(sum.toFixed(2))
+    }
+
     // Function to handle start date change
     const handleInitialDepositChange = (event) => {
         setInitialDeposit(event.target.value);
@@ -16,6 +24,7 @@ function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, sto
         const newStockWeightList = [...stockWeightList];
         newStockWeightList[index] = event.target.value;
         setStockWeightList(newStockWeightList);
+        calculateStockWeightSum(newStockWeightList)
     };
     // Function to handle start date change
     const handleStartDateChange = (event) => {
@@ -42,11 +51,11 @@ function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, sto
 
     return(
         <>
-        
+            
                 <div className="ProfitLineGraphMenu-title">Menu</div>
                     <div className="ProfitLineGraphInput-group">
                         <div className='ProfitLineGraphInputInitialDepositContainer'>
-                            <label htmlFor="initial-deposit" className='ProfitLineGraphTextOrLabel' >Initial Deposit:</label>
+                            <label htmlFor="initial-deposit" className='ProfitLineGraphTextOrLabel' >Initial Deposit ($):</label>
                             <input 
                             type="number" 
                             id="initial-deposit" 
@@ -59,10 +68,13 @@ function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, sto
                             />
                         </div>
                 </div>
+                <div id='ProfitLineGraphMenuPortfolio'>
+                    <p id='ProfitLineGraphMenuPortfolioPar'><strong>Portfolio</strong></p>
+                </div>
                 {tickerList.map((ticker, index) => (
                 <div className="ProfitLineGraphInput-group" key={index}>
                     <div className="ProfitLineGraphStock-inputs">
-                        <label htmlFor={`stock-${ticker}`} className='ProfitLineGraphTextOrLabel'>{ticker}:</label>
+                        <label htmlFor={`stock-${ticker}`} className='ProfitLineGraphTextOrLabel'>{ticker} (%):</label>
                         <input
                         type="number"
                         className='ProfitLineGraphinput'
@@ -78,6 +90,13 @@ function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, sto
                     </div>
                 </div>
                 ))}
+                <div id='ProfitLineGraphMenuStockTotal'>
+                    {sumStockWeights==100?
+                        <p id='ProfitLineGraphMenuGoodSum'>Portfolio total: {sumStockWeights}%</p>
+                        :
+                        <p id='ProfitLineGraphMenuBadSum'>Portfolio total: {sumStockWeights}%</p>
+                    }
+                </div>
                 <div className="ProfitLineGraphInput-group">
                     <div className='ProfitLineGraphInputDateInput'>
                         <label htmlFor="start-date" className='ProfitLineGraphTextOrLabel'>Start Date:</label>
@@ -107,9 +126,6 @@ function ProfitLineGraphMenu({tickerList, initialDeposit, setInitialDeposit, sto
                         onChange={(e)=>handleEndDateChange(e)}
                         />
                     </div>
-                </div>
-                <div>
-                    {/* <button onClick={()=>handleSubmitClicked()}>Submit</button> */}
                 </div>
         </>
     )
