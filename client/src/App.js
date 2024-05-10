@@ -30,7 +30,6 @@ function App() {
     "Volume": 7,
     "Outstanding": 8,
     "EPS": 9,
-    "corMatrix": 10,
     "Net Income": 11,
     "EBITDA": 12,
     "Operating Income": 13,
